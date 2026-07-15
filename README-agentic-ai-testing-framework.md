@@ -110,11 +110,20 @@ Running:
 python -m app.orchestrator
 ```
 
-executes the full agent workflow in one pass. It will:
-- import and initialize the agent modules under app/agents/
-- run each agent implementation in the orchestrator order
-- print a summary line for every agent result
-- produce the overall agent workflow output for the current run
+executes the full agent workflow in one pass in this order:
+1. imports the agent modules from app/agents/
+2. creates the agent instances in the orchestrator list
+3. runs the agents in this sequence:
+   - DeepEvalAgent
+   - RagasAgent
+   - PyritAgent
+   - LangfuseAgent
+   - BraintrustAgent
+   - GuardrailsAgent
+   - PlaywrightAgent
+4. collects each agent result
+5. prints one summary line per agent result
+6. exits with the overall workflow output for that run
 
 Use this when you want to trigger the full agent-based evaluation workflow as a single coordinated run.
 
