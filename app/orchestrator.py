@@ -4,7 +4,10 @@ from pathlib import Path
 from typing import Any
 
 from app.agents.base import AgentResult
+from app.agents.braintrust_agent import BraintrustAgent
 from app.agents.deepeval_agent import DeepEvalAgent
+from app.agents.guardrails_agent import GuardrailsAgent
+from app.agents.langfuse_agent import LangfuseAgent
 from app.agents.playwright_agent import PlaywrightAgent
 from app.agents.pyrit_agent import PyritAgent
 from app.agents.ragas_agent import RagasAgent
@@ -17,6 +20,9 @@ class AgentOrchestrator:
             DeepEvalAgent(),
             RagasAgent(),
             PyritAgent(),
+            LangfuseAgent(),
+            BraintrustAgent(),
+            GuardrailsAgent(),
             PlaywrightAgent(),
         ]
 

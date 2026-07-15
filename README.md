@@ -1,8 +1,10 @@
-<<<<<<< HEAD
-# Agentic-AI-Testing
-Agentic AI Testing
-=======
-# TeacherAI
+# Agentic AI Testing
+
+Agentic AI Testing is a modular framework for evaluating chatbot and RAG systems using separate agent modules for DeepEval, RAGAS, PyRIT, and Playwright. The project also includes pytest-based suites and Allure reporting.
+
+This repository builds on the TeacherAI chatbot app and adds a dedicated testing infrastructure for validating response quality, retrieval grounding, adversarial behavior, and browser-based workflows.
+
+## TeacherAI overview
 
 TeacherAI is a FastAPI-based educational assistant for students. It lets users ask questions about textbook content, get answers with retrieval-augmented generation (RAG), and receive quiz-style or study-help responses grounded in local PDF books.
 
@@ -109,6 +111,9 @@ This will execute the separate agent modules for:
 - DeepEval
 - RAGAS
 - PyRIT
+- Langfuse
+- Braintrust
+- Guardrails AI
 - Playwright
 
 For the optional third-party evaluation libraries, install:
@@ -338,14 +343,34 @@ TeacherAI includes a dedicated testing framework for validating the chatbot end 
 
 - app/agents/
   - Contains one Python module per testing agent.
+- app/agents/__init__.py
+  - Marks the agent package for imports.
+- app/agents/base.py
+  - Defines the shared agent interface and result object.
+- app/agents/deepeval_agent.py
+  - Implements the DeepEval evaluation agent.
+- app/agents/ragas_agent.py
+  - Implements the RAGAS retrieval and generation evaluation agent.
+- app/agents/pyrit_agent.py
+  - Implements the PyRIT adversarial testing agent.
+- app/agents/playwright_agent.py
+  - Implements the Playwright browser-testing agent.
 - app/orchestrator.py
   - Executes the agents in a coordinated workflow.
 - tests/suites/
   - Stores separate pytest suites for each library or evaluation area.
-- reports/allure/
-  - Stores the latest Allure report output.
+- tests/suites/test_deepeval_suite.py
+  - Pytest suite for the DeepEval agent.
+- tests/suites/test_ragas_suite.py
+  - Pytest suite for the RAGAS agent.
+- tests/suites/test_pyrit_suite.py
+  - Pytest suite for the PyRIT agent.
+- tests/suites/test_playwright_suite.py
+  - Pytest suite for the Playwright agent.
 - pytest.ini
   - Configures pytest and the Allure output directory.
+- reports/allure/
+  - Stores the latest Allure report output.
 
 ### 4.2 Agents in the framework
 
@@ -360,6 +385,15 @@ Each agent is responsible for a different testing concern:
 - PyRIT agent
   - Runs adversarial or red-team style checks.
   - Helps discover weak spots in prompts, safety behavior, or robustness.
+- Langfuse agent
+  - Tracks observability and tracing around chatbot evaluations.
+  - Useful for monitoring evaluation runs and debugging flows.
+- Braintrust agent
+  - Supports experiment-style evaluation and logging workflows.
+  - Useful for recording and reviewing test outcomes.
+- Guardrails AI agent
+  - Validates prompt and output safety constraints.
+  - Helps enforce compliance and guardrail behavior.
 - Playwright agent
   - Executes browser-based UI tests for the chatbot experience.
   - Useful for verifying the web app behavior from a user perspective.
@@ -405,6 +439,12 @@ When you run the framework, the following artifacts are produced:
 - PyRIT agent
   - Simulates adversarial prompts or attack-style inputs.
   - Useful for checking security, resilience, and prompt robustness.
+- Langfuse agent
+  - Adds observability and trace-based diagnostics for evaluation runs.
+- Braintrust agent
+  - Supports structured evaluation logging and experimentation.
+- Guardrails AI agent
+  - Enforces prompt and response safety constraints during tests.
 - Playwright agent
   - Connects to the running app in a browser and verifies key user journeys such as submitting a question and receiving an answer.
 
@@ -432,4 +472,3 @@ allure serve reports/allure
 - The app is designed to work locally and does not depend on a cloud API for answering.
 - The quality of responses depends on the quality of the PDF content and the Ollama model selected.
 - If you add or replace textbook PDFs, rebuild the Chroma database so the new content is searchable.
->>>>>>> 35cf79a (Initial commit)
