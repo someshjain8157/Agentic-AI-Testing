@@ -1,6 +1,8 @@
 # Agentic AI testing framework
 
-This document covers the agentic testing framework for TeacherAI. It is a modular evaluation layer for validating chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows through Playwright, DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, and Guardrails AI.
+This document covers the agentic AI testing framework for TeacherAI. It is a multi-agent, agentic AI evaluation layer designed to validate chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows through Playwright, DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, and Guardrails AI.
+
+The framework is built around the idea of coordinating specialized agents, each responsible for a different evaluation concern, so the overall testing process is modular, extensible, and closer to real multi-agent AI workflows.
 
 ## 1. Framework layout
 
