@@ -100,13 +100,39 @@ When you run the framework, the following artifacts are produced:
 
 ## 6. How to run the framework
 
-Run the orchestrator:
+The orchestrator and the pytest suites do different jobs.
+
+### 6.1 When you run the orchestrator
+
+Running:
 
 ```powershell
 python -m app.orchestrator
 ```
 
-Run the pytest suites directly:
+executes the full agent workflow in one pass. It will:
+- import and initialize the agent modules under app/agents/
+- run each agent implementation in the orchestrator order
+- print a summary line for every agent result
+- produce the overall agent workflow output for the current run
+
+Use this when you want to trigger the full agent-based evaluation workflow as a single coordinated run.
+
+### 6.2 When you run the pytest suites
+
+Running:
+
+```powershell
+pytest -q tests/suites
+```
+
+executes the actual test files under tests/suites/. It will:
+- run the pytest-based suite files such as test_deepeval_suite.py, test_ragas_suite.py, test_pyrit_suite.py, and test_playwright_suite.py
+- execute the assertions and test cases defined in those suite files
+- collect results in pytest output and report them in the terminal
+- generate or refresh the Allure report when the Allure directory is configured
+
+Use this when you want to run the formal test suites themselves.
 
 ```powershell
 pytest -q tests/suites
