@@ -1,6 +1,6 @@
 # Agentic AI Testing
 
-Agentic AI Testing is a modular framework for evaluating chatbot and RAG systems using separate agent modules for DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, Guardrails AI, and Playwright. The project also includes pytest-based suites and Allure reporting.
+Agentic AI Testing is a modular framework for evaluating chatbot and RAG systems. The Playwright workflow acts as the umbrella browser-based test driver, while the other agents cover DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, and Guardrails AI. The project also includes pytest-based suites and Allure reporting.
 
 This repository builds on the TeacherAI chatbot app and adds a dedicated testing infrastructure for validating response quality, retrieval grounding, adversarial behavior, and browser-based workflows.
 
@@ -335,7 +335,7 @@ pip install pytest allure-pytest
 - app/agents/pyrit_agent.py
   - Implements the PyRIT adversarial testing agent.
 - app/agents/playwright_agent.py
-  - Implements the Playwright browser-testing agent.
+  - Implements the Playwright umbrella browser-testing agent that bundles the other agent-related checks into its workflow.
 - app/orchestrator.py
   - Executes the agents in a coordinated workflow.
 - tests/suites/
@@ -347,7 +347,7 @@ pip install pytest allure-pytest
 - tests/suites/test_pyrit_suite.py
   - Pytest suite for the PyRIT agent.
 - tests/suites/test_playwright_suite.py
-  - Pytest suite for the Playwright agent.
+  - Pytest suite for the Playwright umbrella workflow and its embedded agent checks.
 - pytest.ini
   - Configures pytest and the Allure output directory.
 - reports/allure/
@@ -434,7 +434,7 @@ When you run the framework, the following artifacts are produced:
 - Guardrails AI agent
   - Uses the guardrails-ai library to enforce prompt and response safety constraints during tests.
 - Playwright agent
-  - Uses the playwright library to connect to the running app in a browser and verify key user journeys such as submitting a question and receiving an answer.
+  - Uses the playwright library as the umbrella browser-based workflow and embeds the other agent checks into the same run while verifying user journeys such as submitting a question and receiving an answer.
 
 ### 2.7 How to run the framework
 
