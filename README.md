@@ -1,6 +1,6 @@
 # Agentic AI Testing
 
-Agentic AI Testing is a modular framework for evaluating chatbot and RAG systems using separate agent modules for DeepEval, RAGAS, PyRIT, and Playwright. The project also includes pytest-based suites and Allure reporting.
+Agentic AI Testing is a modular framework for evaluating chatbot and RAG systems using separate agent modules for DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, Guardrails AI, and Playwright. The project also includes pytest-based suites and Allure reporting.
 
 This repository builds on the TeacherAI chatbot app and adds a dedicated testing infrastructure for validating response quality, retrieval grounding, adversarial behavior, and browser-based workflows.
 
@@ -8,27 +8,35 @@ This repository builds on the TeacherAI chatbot app and adds a dedicated testing
 
 TeacherAI is a FastAPI-based educational assistant for students. It lets users ask questions about textbook content, get answers with retrieval-augmented generation (RAG), and receive quiz-style or study-help responses grounded in local PDF books.
 
-## 1. Setup
+## 1. TeacherAI chatbot setup and architecture
 
-### Prerequisites
+### 1.1 Prerequisites
 - Python 3.10+ (the project is currently running with Python 3.14 in this environment)
 - Ollama installed and running locally
 - A local virtual environment recommended
 - Internet access for the first install of Python packages and Ollama model download
 
-### 1.1 Create a virtual environment
+### 1.2 Create a virtual environment
 ```powershell
 cd C:\TeacherAI
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
 
-### 1.2 Install project libraries
+### 1.3 Install project libraries
 ```powershell
 pip install -r requirements.txt
 ```
 
-### 1.3 Install and run Ollama
+### 1.4 Install chatbot and RAG dependencies
+If you want the full chatbot stack locally, install the core app packages and the optional agentic testing libraries:
+
+```powershell
+pip install -r requirements.txt
+pip install -r requirements-agentic.txt
+```
+
+### 1.5 Install and run Ollama
 If Ollama is not installed yet, install it from https://ollama.com and then pull the model used by the app:
 
 ```powershell
@@ -36,7 +44,7 @@ ollama pull phi3:mini
 ollama serve
 ```
 
-### 1.4 Project folder structure
+### 1.6 Project folder structure
 ```text
 TeacherAI/
   app/
@@ -65,7 +73,7 @@ TeacherAI/
   README.md
 ```
 
-### 1.5 Add PDF textbooks
+### 1.7 Add PDF textbooks
 Place your textbook PDFs inside the subject folders under books/. Example:
 
 ```text
@@ -77,7 +85,7 @@ books/
     chapter1.pdf
 ```
 
-### 1.6 Create the RAG knowledge base
+### 1.8 Create the RAG knowledge base
 The app uses Chroma and sentence embeddings to retrieve relevant textbook content. Build the knowledge base once before first use:
 
 ```powershell
@@ -97,32 +105,7 @@ python -m app.index_books
 
 That command scans every subject folder again, discovers the new folder automatically, and rebuilds Chroma so the new subject is searchable.
 
-### 1.6.1 Run the agentic test framework
-
-The agentic test lab now has a modular layout under `app/agents/` and `app/orchestrator.py` so each agent type can live in its own module. A dedicated test suite layout also sits under `tests/suites/`.
-
-Run the orchestrator with:
-
-```powershell
-python -m app.orchestrator
-```
-
-This will execute the separate agent modules for:
-- DeepEval
-- RAGAS
-- PyRIT
-- Langfuse
-- Braintrust
-- Guardrails AI
-- Playwright
-
-For the optional third-party evaluation libraries, install:
-
-```powershell
-pip install -r requirements-agentic.txt
-```
-
-### 1.7 Start the server
+### 1.9 Start the server
 ```powershell
 uvicorn app.server:app --reload
 ```
@@ -132,7 +115,7 @@ Then open:
 http://127.0.0.1:8000
 ```
 
-### 1.8 Chatbot URLs and endpoints
+### 1.10 Chatbot URLs and endpoints
 
 Once the server is running, these are the main browser/API entry points:
 
@@ -155,7 +138,7 @@ Once the server is running, these are the main browser/API entry points:
 
 The `/ask` endpoint returns a streaming plain-text response, so it is best used from the web UI or the Swagger docs page.
 
-### 1.9 Observability, audit, and compliance logging
+### 1.11 Observability, audit, and compliance logging
 
 TeacherAI now records structured logs for:
 
@@ -183,7 +166,7 @@ Audit output:
   - One JSON event per chat turn, stored as JSONL.
   - Each event includes the question, answer, citations, and error details, plus a request ID so you can correlate browser request, backend processing, retrieval, answer, and citations.
 
-### 1.10 Build the EXE
+### 1.12 Build the EXE
 
 Use `launch.py` as the PyInstaller entry script. It starts the FastAPI server, waits for it to be ready, and opens the browser for the user.
 
@@ -199,7 +182,7 @@ After the build finishes, the executable will be created in:
 dist\TeacherAI.exe
 ```
 
-### 1.11 Run the packaged EXE
+### 1.13 Run the packaged EXE
 
 For a non-technical user, the app should be distributed as a folder that contains the EXE plus the local data it needs.
 
@@ -225,9 +208,9 @@ If `books/` is missing, the chatbot will not have textbook content to search.
 If `chromadb/` is missing, it can be created again when the app rebuilds the local index.
 If Ollama is not running, the EXE will show an error and stop.
 
-## 2. Files to create or update
+### 1.14 Files to create or update
 
-### Required files
+#### Required files
 - requirements.txt
   - Python dependencies for the project
 - .venv/
@@ -235,13 +218,13 @@ If Ollama is not running, the EXE will show an error and stop.
 - chromadb/
   - Created automatically when the RAG database is built
 
-### Optional files you may create
+#### Optional files you may create
 - .gitignore
   - Recommended to ignore .venv/, __pycache__/, and chromadb/ if you do not want to commit them
 - logs/
   - Optional folder for debugging or runtime logs
 
-## 3. How to convert PDFs into RAG content
+### 1.15 How to convert PDFs into RAG content
 
 The app does not use a manual PDF-to-RAG conversion step. Instead, it automatically processes PDFs when you run:
 
@@ -258,9 +241,9 @@ That command will:
 
 If you add new books or replace existing PDFs, run the same command again so the search index is updated.
 
-## 4. File overview
+### 1.16 File overview
 
-### Core app files
+#### Core app files
 - app/server.py
   - Starts the FastAPI app.
   - Serves the frontend HTML, exposes the /subjects endpoint, and handles the /ask streaming API.
@@ -286,7 +269,7 @@ If you add new books or replace existing PDFs, run the same command again so the
 - app/quiz.py
   - Tracks the current in-memory quiz state.
 
-### Frontend files
+#### Frontend files
 - app/static/app.js
   - Browser-side logic for sending questions, handling streaming responses, and speaking the answer aloud.
 
@@ -299,7 +282,7 @@ If you add new books or replace existing PDFs, run the same command again so the
 - app/static/avatar/
   - Contains the avatar images used for idle, listening, thinking, and speaking states.
 
-### Data and utilities
+#### Data and utilities
 - books/
   - Folder containing subject-wise textbook PDFs.
 
@@ -309,21 +292,10 @@ If you add new books or replace existing PDFs, run the same command again so the
 - app/index_books.py
   - Refresh utility that scans all subject folders under `books/`, reports discovered subjects, and rebuilds Chroma.
 
-- app/agents/
-  - Separate agent modules for DeepEval, RAGAS, PyRIT, and Playwright.
-- app/orchestrator.py
-  - Central orchestrator that runs the agent modules.
-- tests/suites/
-  - Separate pytest suites for DeepEval, RAGAS, PyRIT, and Playwright.
-- pytest.ini
-  - Pytest configuration with Allure output enabled.
-- reports/allure/
-  - Generated Allure report output directory.
-
 - requirements.txt
   - Python dependencies for the project.
 
-## 3. How the project works end to end
+### 1.17 How the project works end to end
 
 1. The user opens the web app in the browser.
 2. The frontend loads the available subject folders from the backend.
@@ -335,11 +307,20 @@ If you add new books or replace existing PDFs, run the same command again so the
 8. The frontend displays the answer, shows the source book/chapter/page metadata, and optionally speaks the answer aloud.
 9. The conversation is saved in memory for the current session.
 
-## 4. Chatbot testing framework
+## 2. Agentic AI testing framework
 
 TeacherAI includes a dedicated testing framework for validating the chatbot end to end. It is organized into separate agent modules, test suites, and report outputs so each evaluation type can be run independently or together.
 
-### 4.1 Framework layout
+### 2.1 Framework layout
+
+Install the testing dependencies with:
+
+```powershell
+pip install -r requirements-agentic.txt
+pip install pytest allure-pytest
+```
+
+### 2.2 Agent files and suites
 
 - app/agents/
   - Contains one Python module per testing agent.
@@ -372,33 +353,40 @@ TeacherAI includes a dedicated testing framework for validating the chatbot end 
 - reports/allure/
   - Stores the latest Allure report output.
 
-### 4.2 Agents in the framework
+### 2.2 Agents in the framework
 
-Each agent is responsible for a different testing concern:
+Each agent is responsible for a different testing concern and maps to a specific library where appropriate:
 
 - DeepEval agent
+  - Library: deepeval
   - Evaluates chatbot responses against expected quality criteria.
   - Useful for comparing answer relevance, structure, and correctness.
 - RAGAS agent
+  - Library: ragas
   - Focuses on retrieval-augmented generation quality.
   - Checks whether the retrieved context supports the answer well.
 - PyRIT agent
+  - Library: pyrit
   - Runs adversarial or red-team style checks.
   - Helps discover weak spots in prompts, safety behavior, or robustness.
 - Langfuse agent
+  - Library: langfuse
   - Tracks observability and tracing around chatbot evaluations.
   - Useful for monitoring evaluation runs and debugging flows.
 - Braintrust agent
+  - Library: braintrust
   - Supports experiment-style evaluation and logging workflows.
   - Useful for recording and reviewing test outcomes.
 - Guardrails AI agent
+  - Library: guardrails-ai
   - Validates prompt and output safety constraints.
   - Helps enforce compliance and guardrail behavior.
 - Playwright agent
+  - Library: playwright
   - Executes browser-based UI tests for the chatbot experience.
   - Useful for verifying the web app behavior from a user perspective.
 
-### 4.3 Workflow
+### 2.3 Workflow
 
 The testing workflow is simple and modular:
 
@@ -408,7 +396,7 @@ The testing workflow is simple and modular:
 4. The orchestrator collects the results and finishes the run.
 5. The test outputs and reports are written to the configured folders.
 
-### 4.4 What gets executed and generated
+### 2.4 What gets executed and generated
 
 When you run the framework, the following artifacts are produced:
 
@@ -421,34 +409,34 @@ When you run the framework, the following artifacts are produced:
 - Runtime summaries
   - Agent execution summaries are printed in the terminal and can also be saved as structured output in the reports folder.
 
-### 4.5 Where results are saved
+### 2.5 Where results are saved
 
 - Test suites: tests/suites/
 - Pytest output and execution status: terminal output and pytest reports
 - Allure report: reports/allure/
 - Optional structured agent reports: add a dedicated reports/agentic/ folder for machine-readable JSON summaries if you want to persist them long term
 
-### 4.6 How each agent works
+### 2.6 How each agent works
 
 - DeepEval agent
-  - Runs evaluation checks against the chatbot response quality.
+  - Uses the deepeval library to run evaluation checks against chatbot response quality.
   - Best used when you want to compare generated answers against expected patterns or rubric-based quality checks.
 - RAGAS agent
-  - Validates retrieval quality for the RAG pipeline.
+  - Uses the ragas library to validate retrieval quality for the RAG pipeline.
   - Helps ensure the chatbot is grounded in the right textbook content.
 - PyRIT agent
-  - Simulates adversarial prompts or attack-style inputs.
+  - Uses the pyrit library to simulate adversarial prompts or attack-style inputs.
   - Useful for checking security, resilience, and prompt robustness.
 - Langfuse agent
-  - Adds observability and trace-based diagnostics for evaluation runs.
+  - Uses the langfuse library to add observability and trace-based diagnostics for evaluation runs.
 - Braintrust agent
-  - Supports structured evaluation logging and experimentation.
+  - Uses the braintrust library to support structured evaluation logging and experimentation.
 - Guardrails AI agent
-  - Enforces prompt and response safety constraints during tests.
+  - Uses the guardrails-ai library to enforce prompt and response safety constraints during tests.
 - Playwright agent
-  - Connects to the running app in a browser and verifies key user journeys such as submitting a question and receiving an answer.
+  - Uses the playwright library to connect to the running app in a browser and verify key user journeys such as submitting a question and receiving an answer.
 
-### 4.7 How to run the framework
+### 2.7 How to run the framework
 
 Run the orchestrator:
 
@@ -462,13 +450,25 @@ Run the pytest suites directly:
 pytest -q tests/suites
 ```
 
+Generate or refresh the Allure report:
+
+```powershell
+pytest -q tests/suites --alluredir=reports/allure
+```
+
 View the latest Allure report:
 
 ```powershell
 allure serve reports/allure
 ```
 
-## 5. Notes
+You can also run the regression checks used during development:
+
+```powershell
+pytest -q tests/test_agent_layout.py tests/test_observability.py
+```
+
+## 3. Notes
 - The app is designed to work locally and does not depend on a cloud API for answering.
 - The quality of responses depends on the quality of the PDF content and the Ollama model selected.
 - If you add or replace textbook PDFs, rebuild the Chroma database so the new content is searchable.
