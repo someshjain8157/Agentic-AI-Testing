@@ -39,6 +39,12 @@ pip install pytest allure-pytest
   - Pytest suite for the PyRIT agent.
 - tests/suites/test_playwright_suite.py
   - Pytest suite for the Playwright umbrella workflow and its embedded agent checks.
+- tests/suites/test_langfuse_suite.py
+  - Pytest suite for the Langfuse observability and tracing agent.
+- tests/suites/test_braintrust_suite.py
+  - Pytest suite for the Braintrust experiment and logging agent.
+- tests/suites/test_guardrails_suite.py
+  - Pytest suite for the Guardrails AI safety and compliance agent.
 - pytest.ini
   - Configures pytest and the Allure output directory.
 - reports/allure/
@@ -136,7 +142,7 @@ pytest -q tests/suites
 ```
 
 executes the actual test files under tests/suites/. It will:
-- run the pytest-based suite files such as test_deepeval_suite.py, test_ragas_suite.py, test_pyrit_suite.py, and test_playwright_suite.py
+- run the pytest-based suite files such as test_deepeval_suite.py, test_ragas_suite.py, test_pyrit_suite.py, test_langfuse_suite.py, test_braintrust_suite.py, test_guardrails_suite.py, and test_playwright_suite.py
 - execute the assertions and test cases defined in those suite files
 - collect results in pytest output and report them in the terminal
 - generate or refresh the Allure report when the Allure directory is configured
