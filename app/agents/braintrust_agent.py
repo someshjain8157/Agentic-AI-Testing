@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-from app.agents.base import BaseAgent, AgentResult
+from app.agents.base import AgentResult
+from app.testing.agents.compliance import BraintrustAuditAgent
 
 
-class BraintrustAgent(BaseAgent):
+class BraintrustAgent(BraintrustAuditAgent):
     name = "braintrust_agent"
 
     def run(self) -> AgentResult:
+        report = super()._run()
         return AgentResult(
             name=self.name,
-            summary="Braintrust agent stub",
-            data={"library": "braintrust"},
+            summary=report.summary,
+            data={"library": "braintrust", **report.data},
         )

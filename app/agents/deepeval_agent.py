@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-from app.agents.base import BaseAgent, AgentResult
+from app.testing.agents.deepeval_agent import DeepEvalAgent as TestingDeepEvalAgent
+from app.agents.base import AgentResult
 
 
-class DeepEvalAgent(BaseAgent):
+class DeepEvalAgent(TestingDeepEvalAgent):
     name = "deepeval_agent"
 
     def run(self) -> AgentResult:
+        report = super()._run()
         return AgentResult(
             name=self.name,
-            summary="DeepEval agent stub",
-            data={"library": "deepeval"},
+            summary=report.summary,
+            data={"library": "deepeval", **report.data},
         )

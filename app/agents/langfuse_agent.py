@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-from app.agents.base import BaseAgent, AgentResult
+from app.agents.base import AgentResult
+from app.testing.agents.compliance import LangfuseObservabilityAgent
 
 
-class LangfuseAgent(BaseAgent):
+class LangfuseAgent(LangfuseObservabilityAgent):
     name = "langfuse_agent"
 
     def run(self) -> AgentResult:
+        report = super()._run()
         return AgentResult(
             name=self.name,
-            summary="Langfuse agent stub",
-            data={"library": "langfuse"},
+            summary=report.summary,
+            data={"library": "langfuse", **report.data},
         )

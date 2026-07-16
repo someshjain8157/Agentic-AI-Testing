@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-from app.agents.base import BaseAgent, AgentResult
+from app.agents.base import AgentResult
+from app.testing.agents.compliance import GuardrailComplianceAgent
 
 
-class GuardrailsAgent(BaseAgent):
+class GuardrailsAgent(GuardrailComplianceAgent):
     name = "guardrails_agent"
 
     def run(self) -> AgentResult:
+        report = super()._run()
         return AgentResult(
             name=self.name,
-            summary="Guardrails agent stub",
-            data={"library": "guardrails-ai"},
+            summary=report.summary,
+            data={"library": "guardrails-ai", **report.data},
         )
