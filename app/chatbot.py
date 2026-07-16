@@ -81,7 +81,7 @@ async def ask(question: str, subject: str = "", request_id: str = ""):
             },
         ]
     else:
-        retrieval_k = 1 if request_type == "normal" else TOP_K
+        retrieval_k = TOP_K
 
         # Run retrieval in a background thread so the event loop stays responsive.
         retrieval_started_at = time.perf_counter()

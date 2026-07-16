@@ -1,0 +1,18 @@
+{
+  "name": "guardrail_compliance_agent",
+  "status": "warning",
+  "summary": "Guardrail policy checks completed.",
+  "duration_ms": 0.0,
+  "artifacts": [],
+  "data": {
+    "integration": "guardrails_ai",
+    "findings": [
+      {
+        "type": "missing_citations",
+        "request_id": "0082cc38bda84442acd1b8ef5e88ca5a"
+      }
+    ],
+    "log_count": 51
+  },
+  "id": "bd64799ccc0741fbae503a9095370ab6"
+}

@@ -1,0 +1,2 @@
+"""TeacherAI application package."""
+

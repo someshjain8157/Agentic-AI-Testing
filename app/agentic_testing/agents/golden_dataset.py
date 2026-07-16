@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import textwrap
-from pathlib import Path
+import re
 
 from app.agentic_testing.agents.base import BaseAgent
 from app.agentic_testing.config import DEFAULT_GOLDEN_PER_SUBJECT, GOLDEN_DATA_DIR
@@ -11,11 +10,52 @@ from app.agentic_testing.reporting import save_agent_report
 from app.agentic_testing.utils import ensure_dir, write_json
 
 
-SYSTEM_PROMPT = """You are a dataset generation agent for a school chatbot.
-Use only the textbook excerpts provided by the user.
-Generate concise, student-friendly questions and answers.
-Return strict JSON only.
-"""
+def _first_sentence(text: str) -> str:
+    cleaned = " ".join(text.split()).strip()
+    if not cleaned:
+        return ""
+
+    match = re.search(r"(.+?[.!?])(?:\s|$)", cleaned)
+    if match:
+        return match.group(1).strip()
+    return cleaned[:220].rstrip()
+
+
+def _fallback_example(family, snippet, index: int) -> GoldenExample:
+    answer = _first_sentence(snippet.text)
+    if not answer:
+        answer = snippet.text[:220].strip()
+
+    question_templates = [
+        "What is the main idea in {chapter}?",
+        "What does the excerpt from {chapter} explain?",
+        "What does the textbook say about this topic in {chapter}?",
+        "Which important point is described in {chapter}?",
+    ]
+    template = question_templates[(index - 1) % len(question_templates)]
+    question = template.format(chapter=snippet.chapter or family.label)
+
+    return GoldenExample(
+        id=f"{family.key}_{index}",
+        subject_key=family.key,
+        subject_label=family.label,
+        question=question,
+        expected_answer=answer,
+        citations=[snippet.citation()],
+        source_ids=[snippet.snippet_id],
+        difficulty=["easy", "medium", "hard"][(index - 1) % 3],
+        task_type="short_answer",
+    )
+
+
+def _coerce_items(payload) -> list[dict]:
+    if isinstance(payload, list):
+        return [item for item in payload if isinstance(item, dict)]
+    if isinstance(payload, dict):
+        items = payload.get("items", [])
+        if isinstance(items, list):
+            return [item for item in items if isinstance(item, dict)]
+    return []
 
 
 class GoldenDatasetAgent(BaseAgent):
@@ -32,59 +72,15 @@ class GoldenDatasetAgent(BaseAgent):
             if not snippets:
                 continue
 
-            snippet_block = "\n\n".join(
-                textwrap.dedent(
-                    f"""
-                    [{snippet.snippet_id}] subject={snippet.folder_name} chapter={snippet.chapter} page={snippet.page}
-                    {snippet.text}
-                    """
-                ).strip()
-                for snippet in snippets
-            )
-
-            prompt = f"""
-Create exactly {DEFAULT_GOLDEN_PER_SUBJECT} unique question-answer pairs for the {family.label} chatbot.
-Questions must be answerable from the excerpts below.
-Each item must include:
-- question
-- expected_answer
-- source_ids (one or more snippet ids)
-- difficulty (easy, medium, hard)
-- task_type
-
-Rules:
-- Use only the excerpt content.
-- Keep answers short and accurate.
-- Prefer school-friendly language.
-- Do not add any extra commentary outside JSON.
-
-Textbook excerpts:
-{snippet_block}
-"""
-            payload = self.llm.complete_json(SYSTEM_PROMPT, prompt)
-            items = payload if isinstance(payload, list) else payload.get("items", [])
-
             examples: list[GoldenExample] = []
-            for index, item in enumerate(items[:DEFAULT_GOLDEN_PER_SUBJECT], start=1):
-                source_ids = item.get("source_ids", [])
-                citations = []
-                for source_id in source_ids:
-                    match = next((snippet for snippet in snippets if snippet.snippet_id == source_id), None)
-                    if match:
-                        citations.append(match.citation())
-                examples.append(
-                    GoldenExample(
-                        id=f"{family.key}_{index}",
-                        subject_key=family.key,
-                        subject_label=family.label,
-                        question=str(item.get("question", "")).strip(),
-                        expected_answer=str(item.get("expected_answer", "")).strip(),
-                        citations=citations,
-                        source_ids=[str(source_id) for source_id in source_ids],
-                        difficulty=str(item.get("difficulty", "medium")),
-                        task_type=str(item.get("task_type", "short_answer")),
-                    )
-                )
+            seen_questions: set[str] = set()
+            for index in range(1, DEFAULT_GOLDEN_PER_SUBJECT + 1):
+                snippet = snippets[(index - 1) % len(snippets)]
+                example = _fallback_example(family, snippet, index)
+                if example.question in seen_questions:
+                    continue
+                seen_questions.add(example.question)
+                examples.append(example)
 
             subject_counts[family.key] = len(examples)
             generated_path = GOLDEN_DATA_DIR / f"{family.key}.json"

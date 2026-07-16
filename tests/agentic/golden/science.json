@@ -1,0 +1,192 @@
+[
+  {
+    "id": "science_1",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What is the main idea in Chapter 1?",
+    "expected_answer": "Exploration: Entering the World of Secondary Science 1 In the middle stage, science invited you to be curious and observe the world closely, to ask questions, and to find out how things work.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_2",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What does the excerpt from Chapter 10 explain?",
+    "expected_answer": "Sound Waves: Characteristics and Applications Chapter 10 Sound is an everyday sensory experience that helps us become aware of our surroundings.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 10",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_3",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What does the textbook say about this topic in Chapter 11?",
+    "expected_answer": "Reproduction: How Life Continues You have learnt that one of the important characteristics of living beings is that they reproduce.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 11",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_4",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "Which important point is described in Chapter 12?",
+    "expected_answer": "Have you ever wondered why some plants can survive long droughts while others cannot?",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 12",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_5",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What is the main idea in Chapter 13?",
+    "expected_answer": "Earth as a System: Energy, Matter, and Life Think It Over y How does the warming of Arabian Sea water affect the southwest monsoon in India?",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 13",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI5"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_6",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What does the excerpt from Chapter 2 explain?",
+    "expected_answer": "It is widely accepted amongst the scientific community that life originated in water.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI6"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_7",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What does the textbook say about this topic in Chapter 1?",
+    "expected_answer": "Exploration: Entering the World of Secondary Science 1 In the middle stage, science invited you to be curious and observe the world closely, to ask questions, and to find out how things work.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_8",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "Which important point is described in Chapter 10?",
+    "expected_answer": "Sound Waves: Characteristics and Applications Chapter 10 Sound is an everyday sensory experience that helps us become aware of our surroundings.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 10",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_9",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What is the main idea in Chapter 11?",
+    "expected_answer": "Reproduction: How Life Continues You have learnt that one of the important characteristics of living beings is that they reproduce.",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 11",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "science_10",
+    "subject_key": "science",
+    "subject_label": "Science",
+    "question": "What does the excerpt from Chapter 12 explain?",
+    "expected_answer": "Have you ever wondered why some plants can survive long droughts while others cannot?",
+    "citations": [
+      {
+        "subject": "SCIENCE - Exploration",
+        "chapter": "Chapter 12",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SCI4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  }
+]

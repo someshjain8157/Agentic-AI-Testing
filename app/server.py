@@ -2,8 +2,6 @@ from pathlib import Path
 import time
 from uuid import uuid4
 
-from app.config import BOOKS_DIR
-
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from app.chatbot import ask
+from app.rag import discover_subjects
 from app.observability import log_event
 
 BASE_DIR = Path(__file__).parent
@@ -82,17 +81,7 @@ def home():
 
 @app.get("/subjects")
 def get_subjects():
-
-    subjects = []
-
-    for folder in sorted(BOOKS_DIR.iterdir()):
-
-        if folder.is_dir():
-            subjects.append(folder.name)
-
-    return {
-        "subjects": subjects
-    }
+    return {"subjects": discover_subjects()}
 
 @app.post("/ask")
 async def ask_api(data: Question, request: Request):

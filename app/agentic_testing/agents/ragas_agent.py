@@ -24,9 +24,10 @@ class RagasAgent(BaseAgent):
 
             goldens = read_json(dataset_path)[:DEFAULT_DEEPEVAL_SAMPLES]
             sample_results = []
+            subject_name = family.folder_names[0] if family.folder_names else ""
 
             for item in goldens:
-                turn = self.client.ask(item["question"], subject="")
+                turn = self.client.ask(item["question"], subject=subject_name)
                 sample_results.append(
                     {
                         "question": item["question"],
@@ -43,8 +44,10 @@ class RagasAgent(BaseAgent):
                 ]
                 result_summary[family.key] = {
                     "samples": sample_results,
+                    "sample_count": len(sample_results),
                     "pass_rate": round(mean(pass_rates), 3) if pass_rates else 0.0,
                     "ragas_available": True,
+                    "subject_name": subject_name,
                 }
 
         report = AgentReport(

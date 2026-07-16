@@ -1,0 +1,21 @@
+{
+  "name": "golden_dataset_agent",
+  "status": "passed",
+  "summary": "Golden datasets generated for the core subjects.",
+  "duration_ms": 0.0,
+  "artifacts": [
+    "C:\\TeacherAI\\tests\\agentic\\golden\\english.json",
+    "C:\\TeacherAI\\tests\\agentic\\golden\\math.json",
+    "C:\\TeacherAI\\tests\\agentic\\golden\\science.json",
+    "C:\\TeacherAI\\tests\\agentic\\golden\\social_science.json"
+  ],
+  "data": {
+    "subjects": {
+      "english": 10,
+      "math": 10,
+      "science": 10,
+      "social_science": 10
+    }
+  },
+  "id": "3ce3140fa0de424e9a56ac7fe07366df"
+}

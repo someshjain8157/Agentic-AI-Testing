@@ -1,0 +1,192 @@
+[
+  {
+    "id": "social_science_1",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What is the main idea in Chapter 1?",
+    "expected_answer": "Understanding Social Science Chapter 1 In Grades 6 to 8, we have explored Social Science through stories of people, places, and events.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_2",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What does the excerpt from Chapter 2 explain?",
+    "expected_answer": "Shaping of the Earth\u2019s Surface Chapter 2 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_3",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What does the textbook say about this topic in Chapter 3?",
+    "expected_answer": "Atmosphere and Climate Chapter 3 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_4",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "Which important point is described in Chapter 4?",
+    "expected_answer": "Early Humans and Beginning of Civilisation Chapter 4 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_5",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What is the main idea in Chapter 5?",
+    "expected_answer": "State and Society up to 1000 CE Chapter 5 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 5",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC5"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_6",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What does the excerpt from Chapter 6 explain?",
+    "expected_answer": "Democracy Chapter 6 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 6",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC6"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_7",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What does the textbook say about this topic in Chapter 1?",
+    "expected_answer": "Understanding Social Science Chapter 1 In Grades 6 to 8, we have explored Social Science through stories of people, places, and events.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_8",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "Which important point is described in Chapter 2?",
+    "expected_answer": "Shaping of the Earth\u2019s Surface Chapter 2 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_9",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What is the main idea in Chapter 3?",
+    "expected_answer": "Atmosphere and Climate Chapter 3 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "social_science_10",
+    "subject_key": "social_science",
+    "subject_label": "Social Science",
+    "question": "What does the excerpt from Chapter 4 explain?",
+    "expected_answer": "Early Humans and Beginning of Civilisation Chapter 4 1.",
+    "citations": [
+      {
+        "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "SOC4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  }
+]

@@ -1,0 +1,192 @@
+[
+  {
+    "id": "english_1",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What is the main idea in Chapter 1?",
+    "expected_answer": "I Complete the given word web.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_2",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What does the excerpt from Chapter 2 explain?",
+    "expected_answer": "I Look at the pictures given below and identify the vocations.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_3",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What does the textbook say about this topic in Chapter 3?",
+    "expected_answer": "I Does anyone in your family use a hand fan?",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_4",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "Which important point is described in Chapter 4?",
+    "expected_answer": "I From your experience with an elderly person at home or in your neighbourhood, complete the following graphic organiser.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_5",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What is the main idea in Chapter 5?",
+    "expected_answer": "I This is a picture of Sheetal Devi, a para-archer who was honoured with the Arjuna Award in January 2024.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 5",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG5"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_6",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What does the excerpt from Chapter 6 explain?",
+    "expected_answer": "I Given below are some stringed musical instruments.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 6",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG6"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_7",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What does the textbook say about this topic in Chapter 1?",
+    "expected_answer": "I Complete the given word web.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_8",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "Which important point is described in Chapter 2?",
+    "expected_answer": "I Look at the pictures given below and identify the vocations.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_9",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What is the main idea in Chapter 3?",
+    "expected_answer": "I Does anyone in your family use a hand fan?",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "english_10",
+    "subject_key": "english",
+    "subject_label": "English",
+    "question": "What does the excerpt from Chapter 4 explain?",
+    "expected_answer": "I From your experience with an elderly person at home or in your neighbourhood, complete the following graphic organiser.",
+    "citations": [
+      {
+        "subject": "ENGLISH- Kaveri",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "ENG4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  }
+]

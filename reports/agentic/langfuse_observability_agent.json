@@ -1,0 +1,13 @@
+{
+  "name": "langfuse_observability_agent",
+  "status": "passed",
+  "summary": "Langfuse-style observability review completed.",
+  "duration_ms": 0.0,
+  "artifacts": [],
+  "data": {
+    "integration": "langfuse",
+    "coverage": 1.0,
+    "log_count": 267
+  },
+  "id": "e2ddfbe2e9fb4721a8a80245492a8e25"
+}

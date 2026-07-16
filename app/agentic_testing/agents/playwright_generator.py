@@ -13,10 +13,39 @@ from app.agentic_testing.utils import ensure_dir
 class PlaywrightGeneratorAgent(BaseAgent):
     name = "playwright_generator_agent"
 
+    def __init__(self, *args, regenerate: bool = False, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.regenerate = regenerate
+
     def _run(self) -> AgentReport:
         ensure_dir(GENERATED_TEST_DIR)
         families = [family for family in discover_subject_families() if family.key in {"math", "social_science", "science", "english"}]
         generated_files: list[str] = []
+        target_paths = [
+            GENERATED_TEST_DIR / "test_chatbot_ui_playwright.py",
+            GENERATED_TEST_DIR / "test_chatbot_golden_pytest.py",
+            GENERATED_TEST_DIR / "test_chatbot_ragas_pytest.py",
+            GENERATED_TEST_DIR / "test_chatbot_deepeval_pytest.py",
+            GENERATED_TEST_DIR / "test_chatbot_pyrit_pytest.py",
+            GENERATED_TEST_DIR / "test_chatbot_compliance_pytest.py",
+        ]
+
+        if not self.regenerate and all(path.exists() for path in target_paths):
+            report = AgentReport(
+                name=self.name,
+                status="passed",
+                summary="Existing generated tests reused; regeneration skipped.",
+                duration_ms=0.0,
+                artifacts=[str(path) for path in target_paths],
+                data={
+                    "generated_test_dir": str(GENERATED_TEST_DIR),
+                    "families": [family.key for family in families],
+                    "regenerated": False,
+                },
+            )
+            if self.output_dir:
+                save_agent_report(report, self.output_dir)
+            return report
 
         test_files = {
             "test_chatbot_ui_playwright.py": self._render_ui_module(),
@@ -38,7 +67,11 @@ class PlaywrightGeneratorAgent(BaseAgent):
             summary="Generated a small pytest suite covering UI, golden data, DeepEval, PyRIT, and compliance checks.",
             duration_ms=0.0,
             artifacts=generated_files,
-            data={"generated_test_dir": str(GENERATED_TEST_DIR), "families": [family.key for family in families]},
+            data={
+                "generated_test_dir": str(GENERATED_TEST_DIR),
+                "families": [family.key for family in families],
+                "regenerated": True,
+            },
         )
         if self.output_dir:
             save_agent_report(report, self.output_dir)

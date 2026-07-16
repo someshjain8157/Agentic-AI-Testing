@@ -1,5 +1,6 @@
 from pathlib import Path
 from functools import lru_cache
+import json
 import fitz
 
 from langchain_core.documents import Document
@@ -11,6 +12,7 @@ from langchain_chroma import Chroma
 from app.config import (
     BOOKS_DIR,
     CHROMA_DIR,
+    CHROMA_INDEX_MANIFEST,
     EMBEDDING_MODEL,
     CHUNK_SIZE,
     CHUNK_OVERLAP,
@@ -36,6 +38,78 @@ def get_db():
         persist_directory=str(CHROMA_DIR),
         embedding_function=get_embeddings(),
     )
+
+
+def _iter_subject_dirs():
+    if not BOOKS_DIR.exists():
+        return []
+    return [folder for folder in sorted(BOOKS_DIR.iterdir()) if folder.is_dir()]
+
+
+def _source_pdf_snapshot():
+    """Return a lightweight snapshot of the source PDFs on disk."""
+
+    snapshot = []
+
+    for subject_folder in _iter_subject_dirs():
+        for pdf in sorted(subject_folder.rglob("*.pdf")):
+            if pdf.name.lower() == "contents.pdf":
+                continue
+
+            stat = pdf.stat()
+            snapshot.append(
+                {
+                    "subject": subject_folder.name,
+                    "path": str(pdf.relative_to(BOOKS_DIR)),
+                    "size": stat.st_size,
+                    "mtime_ns": stat.st_mtime_ns,
+                }
+            )
+
+    return snapshot
+
+
+def _load_index_manifest():
+    try:
+        return json.loads(CHROMA_INDEX_MANIFEST.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return None
+    except Exception:
+        return None
+
+
+def _save_index_manifest(snapshot):
+    CHROMA_INDEX_MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+    CHROMA_INDEX_MANIFEST.write_text(
+        json.dumps(snapshot, ensure_ascii=True, indent=2),
+        encoding="utf-8",
+    )
+
+
+def index_is_stale() -> bool:
+    """Check whether the local Chroma index matches the current PDF set."""
+
+    current_snapshot = _source_pdf_snapshot()
+    saved_snapshot = _load_index_manifest()
+    return saved_snapshot != current_snapshot
+
+
+def ensure_index_current():
+    """Rebuild Chroma only when the index is empty."""
+
+    db = get_db()
+    try:
+        has_docs = db._collection.count() > 0
+    except Exception:
+        has_docs = False
+
+    if has_docs:
+        return db
+
+    if _source_pdf_snapshot():
+        print("\nDetected empty Chroma index. Rebuilding from PDFs...\n")
+        rebuild_database()
+    return get_db()
 
 splitter = RecursiveCharacterTextSplitter(
     chunk_size=CHUNK_SIZE,
@@ -76,7 +150,7 @@ def load_all_books():
 
     all_documents = []
 
-    for subject_folder in sorted(BOOKS_DIR.iterdir()):
+    for subject_folder in _iter_subject_dirs():
 
         if not subject_folder.is_dir():
             continue
@@ -134,14 +208,38 @@ def build_database(documents=None):
     )
 
     get_db.cache_clear()
+    _save_index_manifest(_source_pdf_snapshot())
 
     print("\nKnowledge base created successfully.")
 
     return db
 
 
+def rebuild_database():
+    """Clear and rebuild the Chroma database from the current PDF set."""
+
+    return build_database()
+
+
+def discover_subjects():
+    """Return subjects from both the filesystem and the indexed metadata."""
+
+    subjects = {folder.name for folder in _iter_subject_dirs()}
+
+    try:
+        db = get_db()
+        data = db.get(include=["metadatas"])
+        for metadata in data.get("metadatas", []):
+            if metadata and metadata.get("subject"):
+                subjects.add(metadata["subject"])
+    except Exception:
+        pass
+
+    return sorted(subjects)
+
+
 def retrieve_documents(question: str, subject: str = "", top_k: int = TOP_K):
-    db = get_db()
+    db = ensure_index_current()
 
     search_kwargs = {"k": top_k}
     if subject:

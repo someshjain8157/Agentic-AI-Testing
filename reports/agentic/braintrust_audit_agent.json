@@ -1,0 +1,13 @@
+{
+  "name": "braintrust_audit_agent",
+  "status": "passed",
+  "summary": "Braintrust-style audit review completed.",
+  "duration_ms": 0.0,
+  "artifacts": [],
+  "data": {
+    "integration": "braintrust",
+    "coverage": 0.0,
+    "audit_count": 51
+  },
+  "id": "33ec190332a34d56ae9023b6cb4051ed"
+}

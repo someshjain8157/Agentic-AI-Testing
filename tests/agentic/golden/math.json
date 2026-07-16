@@ -1,0 +1,192 @@
+[
+  {
+    "id": "math_1",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What is the main idea in Chapter 1?",
+    "expected_answer": "Orienting Yourself: The Use of Coordinates 1.1 Introduction A system of coordinates is a structured framework (like the grid lines on a map or graph paper) that enables us to use numbers to describe the exact physical locations of points or objects.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_2",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What does the excerpt from Chapter 2 explain?",
+    "expected_answer": "Introduction to Linear Polynomials 2.1 Introduction We have learnt about algebraic expressions in earlier grades.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_3",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What does the textbook say about this topic in Chapter 3?",
+    "expected_answer": "The World of Numbers 3.1.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_4",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "Which important point is described in Chapter 4?",
+    "expected_answer": "Exploring Algebraic Identities 4.1 Introduction In earlier chapters, you learnt about linear polynomials and how they can be used to represent and solve real-life problems.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_5",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What is the main idea in Chapter 5?",
+    "expected_answer": "I\u2019m Up and Down, and Round and Round Humanity has always been fascinated by the shapes of the things around them.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 5",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT5"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_6",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What does the excerpt from Chapter 6 explain?",
+    "expected_answer": "Measuring Space: Perimeter and Area Fig.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 6",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT6"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_7",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What does the textbook say about this topic in Chapter 1?",
+    "expected_answer": "Orienting Yourself: The Use of Coordinates 1.1 Introduction A system of coordinates is a structured framework (like the grid lines on a map or graph paper) that enables us to use numbers to describe the exact physical locations of points or objects.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 1",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT1"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_8",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "Which important point is described in Chapter 2?",
+    "expected_answer": "Introduction to Linear Polynomials 2.1 Introduction We have learnt about algebraic expressions in earlier grades.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 2",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT2"
+    ],
+    "difficulty": "medium",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_9",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What is the main idea in Chapter 3?",
+    "expected_answer": "The World of Numbers 3.1.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 3",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT3"
+    ],
+    "difficulty": "hard",
+    "task_type": "short_answer"
+  },
+  {
+    "id": "math_10",
+    "subject_key": "math",
+    "subject_label": "Math",
+    "question": "What does the excerpt from Chapter 4 explain?",
+    "expected_answer": "Exploring Algebraic Identities 4.1 Introduction In earlier chapters, you learnt about linear polynomials and how they can be used to represent and solve real-life problems.",
+    "citations": [
+      {
+        "subject": "MATH - Ganita Manjari",
+        "chapter": "Chapter 4",
+        "page": 1
+      }
+    ],
+    "source_ids": [
+      "MAT4"
+    ],
+    "difficulty": "easy",
+    "task_type": "short_answer"
+  }
+]

@@ -55,7 +55,7 @@ Important files:
 The main command is:
 
 ```powershell
-python -m app.agentic_testing.orchestrator
+.\.venv\Scripts\python.exe -m app.agentic_testing.orchestrator
 ```
 
 That command runs this flow:
@@ -94,8 +94,8 @@ That command runs this flow:
    - Looks for policy issues such as PII-like text or missing citations.
 
 8. `PlaywrightGeneratorAgent`
-   - Generates pytest files under `tests/agentic/generated/`.
-   - Creates browser UI tests and generated tests for golden data, RAGAS, DeepEval, PyRIT, and compliance checks.
+   - Reuses the existing pytest files under `tests/agentic/generated/` by default.
+   - Regenerates browser UI tests and generated tests for golden data, RAGAS, DeepEval, PyRIT, and compliance checks only when the orchestrator is run with `--regenerate-playwright-tests`.
 
 9. `PlaywrightRunnerAgent`
    - Runs the generated pytest files.
@@ -158,19 +158,19 @@ The `tests/` folder is for pytest.
 - `tests/suites/test_agent_layout.py`
   - Confirms expected agent modules can be imported.
 - `tests/suites/test_deepeval_suite.py`
-  - DeepEval suite placeholder/check entry.
+  - Runs the DeepEval agent and validates real per-subject sample data.
 - `tests/suites/test_ragas_suite.py`
-  - RAGAS suite placeholder/check entry.
+  - Runs the RAGAS agent and validates real per-subject sample data.
 - `tests/suites/test_pyrit_suite.py`
-  - PyRIT suite placeholder/check entry.
+  - Runs the PyRIT red-team agent and validates its results.
 - `tests/suites/test_playwright_suite.py`
-  - Checks the active Playwright generator creates related generated suites.
+  - Checks that generated Playwright tests are reused by default and regenerated only when requested.
 - `tests/suites/test_langfuse_suite.py`
-  - Langfuse observability suite placeholder/check entry.
+  - Validates observability coverage from the Langfuse-style agent.
 - `tests/suites/test_braintrust_suite.py`
-  - Braintrust audit suite placeholder/check entry.
+  - Validates audit coverage from the Braintrust-style agent.
 - `tests/suites/test_guardrails_suite.py`
-  - Guardrails compliance suite placeholder/check entry.
+  - Validates the Guardrails-style findings report.
 - `tests/suites/test_observability.py`
   - Tests log redaction, hashing, and audit payload behavior.
 
@@ -191,7 +191,7 @@ tests/agentic/golden/
 To run the pytest suites and create one Allure results folder:
 
 ```powershell
-pytest -q tests/suites --alluredir=reports/allure
+.\.venv\Scripts\python.exe -m pytest -q tests\suites --alluredir=reports\allure
 ```
 
 To view the report:
@@ -241,5 +241,11 @@ http://127.0.0.1:8000
 Run the full testing framework:
 
 ```powershell
-python -m app.agentic_testing.orchestrator
+.\.venv\Scripts\python.exe -m app.agentic_testing.orchestrator
+```
+
+To force regeneration of the generated Playwright pytest files on the next orchestrator run:
+
+```powershell
+.\.venv\Scripts\python.exe -m app.agentic_testing.orchestrator --regenerate-playwright-tests
 ```

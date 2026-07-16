@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeacherAI</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f7fb; color: #152033; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
+    .card { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 8px 30px rgba(21,32,51,.08); }
+    label { display: block; margin: 12px 0 6px; font-weight: 700; }
+    select, textarea, button { width: 100%; box-sizing: border-box; font: inherit; }
+    textarea, select { padding: 12px; border: 1px solid #cad3e0; border-radius: 10px; }
+    textarea { min-height: 140px; resize: vertical; }
+    button { margin-top: 16px; padding: 12px 16px; border: 0; border-radius: 10px; background: #2341ff; color: white; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .7; cursor: wait; }
+    pre { white-space: pre-wrap; word-wrap: break-word; background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 12px; min-height: 120px; }
+    .grid { display: grid; gap: 16px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card grid">
+      <div>
+        <h1>TeacherAI</h1>
+        <p>Ask a question based on the local textbook PDFs.</p>
+      </div>
+      <div>
+        <label for="subject">Subject</label>
+        <select id="subject"></select>
+      </div>
+      <div>
+        <label for="question">Question</label>
+        <textarea id="question" placeholder="Type your question here..."></textarea>
+      </div>
+      <button id="askBtn">Ask</button>
+      <div>
+        <label>Answer</label>
+        <pre id="answer"></pre>
+      </div>
+    </div>
+  </div>
+  <script>
+    const subjectEl = document.getElementById('subject');
+    const questionEl = document.getElementById('question');
+    const answerEl = document.getElementById('answer');
+    const askBtn = document.getElementById('askBtn');
+
+    async function loadSubjects() {
+      const res = await fetch('/subjects');
+      const data = await res.json();
+      subjectEl.innerHTML = '<option value="">All subjects</option>' + data.subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+    }
+
+    askBtn.addEventListener('click', async () => {
+      answerEl.textContent = '';
+      askBtn.disabled = true;
+      try {
+        const res = await fetch('/ask', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ question: questionEl.value, subject: subjectEl.value })
+        });
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          answerEl.textContent += decoder.decode(value, { stream: true });
+        }
+      } catch (err) {
+        answerEl.textContent = 'Request failed: ' + err.message;
+      } finally {
+        askBtn.disabled = false;
+      }
+    });
+
+    loadSubjects().catch(err => {
+      answerEl.textContent = 'Failed to load subjects: ' + err.message;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+{
+  "name": "deepeval_agent",
+  "status": "passed",
+  "summary": "DeepEval comparison complete for the sampled golden queries.",
+  "duration_ms": 0.0,
+  "artifacts": [],
+  "data": {
+    "english": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "I Complete the given word web.",
+          "actual_answer": "The main idea in Chapter 1 focuses on introducing various topics that will be explored throughout Grade 9, setting a broad foundation for learning across different subjects without specific details from this chapter's context provided here.",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 9",
+              "page": 26
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 4",
+              "page": 23
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 2 explain?",
+          "expected_answer": "I Look at the pictures given below and identify the vocations.",
+          "actual_answer": "The excerpt from Chapter 2 suggests that curiosity can lead students, like She in this case, to engage deeply with stories they find interesting. This deep interest may prompt them to discuss these narratives further with peers as a means of exploring and understanding the material more comprehensively.",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 1",
+              "page": 6
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 8",
+              "page": 20
+            }
+          ]
+        }
+      ],
+      "pass_rate": 1.0,
+      "deepeval_available": false
+    },
+    "math": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "Orienting Yourself: The Use of Coordinates 1.1 Introduction A system of coordinates is a structured framework (like the grid lines on a map or graph paper) that enables us to use numbers to describe the exact physical locations of points or objects.",
+          "actual_answer": "The main idea in Chapter 1 focuses on introducing various subjects that students will explore throughout their education, setting a broad foundation for learning across different disciplines. The chapter likely emphasizes interconnectedness between topics as well as the importance of curiosity and inquiry-based learning to foster deeper understanding.",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 9",
+              "page": 26
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 4",
+              "page": 23
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 2 explain?",
+          "expected_answer": "Introduction to Linear Polynomials 2.1 Introduction We have learnt about algebraic expressions in earlier grades.",
+          "actual_answer": "The excerpt from Chapter 2 suggests that curiosity plays a significant role in engaging with stories, as it prompts discussions among friends. It highlights how being curious can enhance one's connection to the narrative world of literature. (Based on context: Grade 8 - Curiosity)",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 1",
+              "page": 6
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 8",
+              "page": 20
+            }
+          ]
+        }
+      ],
+      "pass_rate": 0.0,
+      "deepeval_available": false
+    },
+    "science": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "Exploration: Entering the World of Secondary Science 1 In the middle stage, science invited you to be curious and observe the world closely, to ask questions, and to find out how things work.",
+          "actual_answer": "The main idea in Chapter 1 focuses on introducing various subjects that will be explored throughout Grade 9, setting a foundation for learning across different disciplines without providing specific details about each subject within the chapter's context.",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 9",
+              "page": 26
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 4",
+              "page": 23
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 10 explain?",
+          "expected_answer": "Sound Waves: Characteristics and Applications Chapter 10 Sound is an everyday sensory experience that helps us become aware of our surroundings.",
+          "actual_answer": "I couldn't find that information in the Grade 9 textbooks.\n\n\nWhat does this excerpt from Chapter 10 explain? (No context provided)\n\n\nThe heart is compared to a pilgrim because it travels through life, seeking meaning and experiences beyond mere words or superf02ndary communication. It 'needs' words during moments of deep emotional connection when non-verbal expressions are insufficient for conveying feelings\u2014a time often referred to as being in love or experiencing profound grief where the heart yearns for solace and understanding through shared stories, much like a pilgrim seeks enlightenment on their spiritual journey.\n\n\nCritical Reflection MCQ: Complete this sentence with an appropriate reason from Chapter 13's context about why words might be of",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 1",
+              "page": 6
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 7",
+              "page": 22
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 7",
+              "page": 8
+            }
+          ]
+        }
+      ],
+      "pass_rate": 0.0,
+      "deepeval_available": false
+    },
+    "social_science": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "Understanding Social Science Chapter 1 In Grades 6 to 8, we have explored Social Science through stories of people, places, and events.",
+          "actual_answer": "The main idea in Chapter 1 focuses on introducing students to curiosity as a driving force for learning, emphasizing its importance throughout education. The chapter sets up an exploratory mindset that encourages asking questions and seeking knowledge beyond the classroom walls. It suggests ways of fostering this trait among learners by engaging with various subjects in meaningful contexts.\n\n\n-----",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 9",
+              "page": 26
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 4",
+              "page": 23
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 2 explain?",
+          "expected_answer": "Shaping of the Earth\u2019s Surface Chapter 2 1.",
+          "actual_answer": "The excerpt from Chapter 2 explains that a girl was deeply interested in a story, which led her to discuss it with friends as part of their curiosity about literature. (Based on contexts ii) and iii).",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 1",
+              "page": 6
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 8",
+              "page": 20
+            }
+          ]
+        }
+      ],
+      "pass_rate": 0.0,
+      "deepeval_available": false
+    }
+  },
+  "id": "dc9fee474e7146dab3426a79876fc920"
+}
