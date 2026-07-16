@@ -7,8 +7,8 @@ from pathlib import Path
 from app.testing.agents.base import BaseAgent
 from app.testing.agents.compliance import BraintrustAuditAgent, GuardrailComplianceAgent, LangfuseObservabilityAgent
 from app.testing.agents.deepeval_agent import DeepEvalAgent
-from app.testing.agents.embedding_verifier import EmbeddingVerifierAgent
 from app.testing.agents.golden_dataset import GoldenDatasetAgent
+from app.testing.agents.ragas_agent import RagasAgent
 from app.testing.agents.playwright_generator import PlaywrightGeneratorAgent
 from app.testing.agents.playwright_runner import PlaywrightRunnerAgent
 from app.testing.agents.pyrit_attack import PyRITAttackAgent
@@ -25,7 +25,7 @@ class TestingOrchestrator:
 
         self.agents: list[BaseAgent] = [
             GoldenDatasetAgent(output_dir=self.output_dir),
-            EmbeddingVerifierAgent(output_dir=self.output_dir),
+            RagasAgent(output_dir=self.output_dir),
             DeepEvalAgent(output_dir=self.output_dir),
             PyRITAttackAgent(output_dir=self.output_dir),
             LangfuseObservabilityAgent(output_dir=self.output_dir),

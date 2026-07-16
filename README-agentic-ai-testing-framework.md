@@ -1,8 +1,8 @@
 # Agentic AI testing framework
 
-This document covers the agentic AI testing framework for TeacherAI. It is a multi-agent, agentic AI evaluation layer designed to validate chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows through Playwright, DeepEval, RAGAS, PyRIT, Langfuse, Braintrust, and Guardrails AI.
+This document covers the agentic AI testing framework for TeacherAI. It is a multi-agent evaluation layer designed to validate chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows through Playwright, DeepEval, RAGAS-style retrieval verification, PyRIT, Langfuse, Braintrust, and Guardrails AI.
 
-The framework is built around the idea of coordinating specialized agents, each responsible for a different evaluation concern, so the overall testing process is modular, extensible, and closer to real multi-agent AI workflows.
+The framework is built around a single sequential orchestration flow so the whole evaluation pass feels like one pipeline, while still keeping each library-specific check isolated enough to report as its own suite.
 
 ## 1. Framework layout
 
@@ -15,160 +15,137 @@ pip install pytest allure-pytest
 
 ### 1.1 Key files and folders
 
-- app/agents/
-  - Contains one Python module per testing agent.
-- app/agents/__init__.py
-  - Marks the agent package for imports.
-- app/agents/base.py
-  - Defines the shared agent interface and result object.
-- app/agents/deepeval_agent.py
-  - Implements the DeepEval evaluation agent.
-- app/agents/ragas_agent.py
-  - Implements the RAGAS retrieval and generation evaluation agent.
-- app/agents/pyrit_agent.py
-  - Implements the PyRIT adversarial testing agent.
-- app/agents/playwright_agent.py
-  - Implements the Playwright umbrella browser-testing agent that bundles the other agent-related checks into its workflow.
-- app/orchestrator.py
-  - Executes the agents in a coordinated workflow.
-- tests/suites/
+- `app/testing/orchestrator.py`
+  - Main sequential testing pipeline.
+- `app/testing/agents/`
+  - Contains the explicit agent implementations used by the pipeline.
+- `app/testing/agents/golden_dataset.py`
+  - Builds golden question-answer datasets from local textbook snippets.
+- `app/testing/agents/ragas_agent.py`
+  - Runs RAGAS-style retrieval verification against the generated goldens.
+- `app/testing/agents/deepeval_agent.py`
+  - Runs sample comparisons against the generated golden dataset.
+- `app/testing/agents/pyrit_attack.py`
+  - Runs adversarial or red-team style checks.
+- `app/testing/agents/compliance.py`
+  - Contains the Langfuse, Braintrust, and Guardrails-style checks.
+- `app/testing/agents/playwright_generator.py`
+  - Generates browser and library-specific pytest modules.
+- `app/testing/agents/playwright_runner.py`
+  - Executes the generated Playwright-oriented pytest files.
+- `tests/suites/`
   - Stores separate pytest suites for each library or evaluation area.
-- tests/suites/test_deepeval_suite.py
-  - Pytest suite for the DeepEval agent.
-- tests/suites/test_ragas_suite.py
-  - Pytest suite for the RAGAS agent.
-- tests/suites/test_pyrit_suite.py
-  - Pytest suite for the PyRIT agent.
-- tests/suites/test_playwright_suite.py
-  - Pytest suite for the Playwright umbrella workflow and its embedded agent checks.
-- tests/suites/test_langfuse_suite.py
-  - Pytest suite for the Langfuse observability and tracing agent.
-- tests/suites/test_braintrust_suite.py
-  - Pytest suite for the Braintrust experiment and logging agent.
-- tests/suites/test_guardrails_suite.py
-  - Pytest suite for the Guardrails AI safety and compliance agent.
-- pytest.ini
+- `tests/suites/test_deepeval_suite.py`
+  - Pytest suite for the DeepEval flow.
+- `tests/suites/test_ragas_suite.py`
+  - Pytest suite for the RAGAS flow.
+- `tests/suites/test_pyrit_suite.py`
+  - Pytest suite for the PyRIT flow.
+- `tests/suites/test_playwright_suite.py`
+  - Pytest suite for the Playwright browser workflow.
+- `tests/suites/test_langfuse_suite.py`
+  - Pytest suite for observability checks.
+- `tests/suites/test_braintrust_suite.py`
+  - Pytest suite for audit and experiment logging checks.
+- `tests/suites/test_guardrails_suite.py`
+  - Pytest suite for safety and compliance checks.
+- `pytest.ini`
   - Configures pytest and the Allure output directory.
-- reports/allure/
+- `reports/allure/`
   - Stores the latest Allure report output.
 
 ## 2. Agent types in the framework
 
-- DeepEval agent
-  - Library: deepeval
-  - Evaluates chatbot responses against expected quality criteria.
+- Golden dataset agent
+  - Generates question-answer pairs from textbook snippets.
 - RAGAS agent
-  - Library: ragas
-  - Focuses on retrieval-augmented generation quality.
+  - Compares retrieved answers against the generated goldens.
+- DeepEval agent
+  - Evaluates chatbot responses against expected quality criteria.
 - PyRIT agent
-  - Library: pyrit
   - Runs adversarial or red-team style checks.
 - Langfuse agent
-  - Library: langfuse
   - Tracks observability and tracing around chatbot evaluations.
 - Braintrust agent
-  - Library: braintrust
   - Supports experiment-style evaluation and logging workflows.
 - Guardrails AI agent
-  - Library: guardrails-ai
   - Validates prompt and output safety constraints.
 - Playwright agent
-  - Library: playwright
-  - Acts as the umbrella browser-based workflow and embeds the other agent checks into the same run while verifying user journeys such as submitting a question and receiving an answer.
+  - Acts as the umbrella browser workflow and generates the browser-facing pytest modules.
 
 ## 3. Workflow
 
-The testing workflow is simple and modular:
+The testing workflow is intentionally linear:
 
-1. The orchestrator loads the available agent modules.
-2. Each agent runs its own test logic.
-3. Every agent produces a result object with a status, summary, and optional artifacts.
-4. The orchestrator collects the results and finishes the run.
-5. The test outputs and reports are written to the configured folders.
+1. The orchestrator generates golden datasets.
+2. The RAGAS-style retrieval verifier checks retrieval quality against those goldens.
+3. DeepEval compares sampled chatbot answers to the expected goldens.
+4. PyRIT runs adversarial checks.
+5. Langfuse, Braintrust, and Guardrails review observability, audit, and compliance behavior.
+6. Playwright generates browser-oriented pytest modules.
+7. Playwright executes the generated browser tests.
+8. The orchestrator collects the results into a single run report.
 
 ## 4. What gets executed and generated
 
 When you run the framework, the following artifacts are produced:
 
 - Executed test modules
-  - pytest suites under tests/suites/
+  - Pytest suites under `tests/suites/`
 - Generated test results
-  - Test result output is collected by pytest and stored in the workspace.
+  - Pytest output is collected by pytest and stored in the workspace.
 - Allure report
-  - HTML-style report written to reports/allure/
+  - HTML-style report written to `reports/allure/`
 - Runtime summaries
-  - Agent execution summaries are printed in the terminal and can also be saved as structured output in the reports folder.
+  - Agent execution summaries are printed in the terminal and also saved as structured JSON in `reports/agentic/`
 
 ## 5. Where results are saved
 
-- Test suites: tests/suites/
+- Test suites: `tests/suites/`
 - Pytest output and execution status: terminal output and pytest reports
-- Allure report: reports/allure/
-- Optional structured agent reports: add a dedicated reports/agentic/ folder for machine-readable JSON summaries if you want to persist them long term
+- Allure report: `reports/allure/`
+- Structured agent reports: `reports/agentic/`
 
 ## 6. How to run the framework
 
 The orchestrator and the pytest suites do different jobs.
 
-### 6.1 When you run the orchestrator
-
-Running:
+### 6.1 Run the orchestrator
 
 ```powershell
-python -m app.orchestrator
+python -m app.testing.orchestrator
 ```
 
-executes the full agent workflow in one pass in this order:
-1. imports the agent modules from app/agents/
-2. creates the agent instances in the orchestrator list
-3. runs the agents in this sequence:
-   - DeepEvalAgent
-   - RagasAgent
-   - PyritAgent
-   - LangfuseAgent
-   - BraintrustAgent
-   - GuardrailsAgent
-   - PlaywrightAgent
-4. collects each agent result
-5. prints one summary line per agent result
-6. exits with the overall workflow output for that run
+This executes the full agent workflow in one pass.
 
-Use this when you want to trigger the full agent-based evaluation workflow as a single coordinated run.
-
-### 6.2 When you run the pytest suites
-
-Running:
+### 6.2 Run the pytest suites
 
 ```powershell
 pytest -q tests/suites
 ```
 
-executes the actual test files under tests/suites/. It will:
-- run the pytest-based suite files such as test_deepeval_suite.py, test_ragas_suite.py, test_pyrit_suite.py, test_langfuse_suite.py, test_braintrust_suite.py, test_guardrails_suite.py, and test_playwright_suite.py
-- execute the assertions and test cases defined in those suite files
-- collect results in pytest output and report them in the terminal
-- generate or refresh the Allure report when the Allure directory is configured
+This runs the formal library-specific test files.
 
-Use this when you want to run the formal test suites themselves.
-
-```powershell
-pytest -q tests/suites
-```
-
-Generate or refresh the Allure report:
+### 6.3 Generate Allure output
 
 ```powershell
 pytest -q tests/suites --alluredir=reports/allure
 ```
 
-View the latest Allure report:
+### 6.4 View the report
 
 ```powershell
 allure serve reports/allure
 ```
 
-You can also run the regression checks used during development:
+### 6.5 Run the regression checks used during development
 
 ```powershell
 pytest -q tests/suites/test_agent_layout.py tests/suites/test_observability.py
 ```
+
+## 7. Notes
+
+- The newer `app/testing/` package is the clearest place to understand the evaluation workflow.
+- The older `app/agents/` package remains as a compatibility layer and mirrors parts of the same intent.
+- Each pytest file under `tests/suites/` is intended to act as a separate suite inside the shared Allure report.

@@ -1,161 +1,288 @@
 # TeacherAI
 
-This repository has two different concerns that are easy to mix up:
+TeacherAI has two parts:
 
-- The chatbot application itself lives under app/.
-- The testing and evaluation framework lives under app/testing/ and tests/.
+- The chatbot application under `app/`
+- The agentic AI testing framework under `app/testing/` and `tests/`
 
-In short:
+If you are trying to understand the testing workflow, start with `app/testing/orchestrator.py`. That is the main single-flow runner.
 
-- app/ = product code for the chatbot.
-- app/agents/ = agent-related modules used by the top-level agent runner.
-- app/testing/ = the newer, more explicit testing framework package.
-- tests/ = pytest test suite files that exercise the testing framework.
+## 1. Simple Mental Model
 
-## 1. How to think about the folders
+Think of the project like this:
 
-### 1.1 The chatbot app
-The runtime application is under app/ and contains the FastAPI server, RAG pipeline, chatbot logic, and frontend assets.
+```text
+Student or test asks a question
+        |
+        v
+TeacherAI chatbot answers from local textbook/RAG context
+        |
+        v
+Agentic testing framework evaluates the answer
+        |
+        v
+Pytest and Allure collect the results as suites
+```
 
-Typical files:
-- app/server.py
-- app/chatbot.py
-- app/rag.py
-- app/config.py
+The most important distinction:
 
-### 1.2 The agent-related modules
-There is also an app/agents/ package. This is an agent layer for evaluation and orchestration, not the main chatbot runtime.
+- `app/agents/` is a lightweight compatibility layer for the older top-level agent runner.
+- `app/testing/agents/` is the newer and clearer implementation of the testing workflow.
 
-Typical files:
-- app/agents/base.py
-- app/agents/deepeval_agent.py
-- app/agents/playwright_agent.py
+For new testing work, prefer `app/testing/`.
 
-### 1.3 The testing framework
-The more explicit testing framework lives under app/testing/. This package contains its own agents, models, reporting, and orchestrator.
+## 2. Chatbot Application
 
-Typical files:
-- app/testing/orchestrator.py
-- app/testing/agents/
-- app/testing/reporting.py
+The chatbot runtime lives in `app/`.
 
-### 1.4 Pytest suites
-The separate tests/ folder contains pytest suite files that run the testing framework.
+Important files:
 
-Typical files:
-- tests/suites/test_deepeval_suite.py
-- tests/suites/test_playwright_suite.py
-- tests/suites/test_observability.py
+- `app/server.py`
+  - Starts the FastAPI app.
+  - Serves the web page.
+  - Exposes endpoints like `/subjects` and `/ask`.
+- `app/chatbot.py`
+  - Handles chatbot question-answer logic.
+  - Calls retrieval and the local model.
+- `app/rag.py`
+  - Loads textbook PDFs.
+  - Builds chunks and embeddings.
+  - Retrieves relevant textbook passages.
+- `app/config.py`
+  - Stores paths, model names, chunk settings, and retrieval configuration.
+- `app/index_books.py`
+  - Rebuilds or refreshes the book index when subject folders change.
+- `app/observability.py`
+  - Writes structured operational and audit logs.
 
-## 2. Why there are two agent folders
-There are two agent-related packages because the repository contains both:
+## 3. Agentic Testing Workflow
 
-1. A top-level agent orchestration layer under app/agents/.
-2. A fuller testing framework under app/testing/agents/.
+The main command is:
 
-They overlap in purpose, but they are not the same thing. The newer testing package is the clearer place to look when you want to understand the evaluation workflow.
+```powershell
+python -m app.testing.orchestrator
+```
 
-## 3. Recommended mental model
-If you are new to the repo, use this rule of thumb:
+That command runs this flow:
 
-- Open app/ when you want to understand the chatbot product.
-- Open app/testing/ when you want to understand the test framework.
-- Open tests/ when you want to see the pytest suites.
+1. `GoldenDatasetAgent`
+   - Reads textbook snippets.
+   - Generates golden question-answer datasets.
+   - Saves them under `tests/agentic/golden/`.
 
-## 4. Chatbot setup and architecture
+2. `RagasAgent`
+   - Reads the generated golden datasets.
+   - Sends golden questions to the chatbot.
+   - Compares expected answers with actual chatbot answers.
+   - Acts as the RAGAS-style retrieval and answer-quality step.
 
-### 4.1 Prerequisites
-- Python 3.10+
-- Ollama installed and running locally
-- A local virtual environment recommended
+3. `DeepEvalAgent`
+   - Reads golden datasets.
+   - Runs sampled chatbot questions.
+   - Uses DeepEval metrics when the library is installed.
+   - Falls back to a simple comparison when DeepEval is unavailable.
 
-### 4.2 Create a virtual environment
+4. `PyRITAttackAgent`
+   - Sends adversarial prompts to the chatbot.
+   - Checks whether the chatbot leaks hidden instructions, system prompt text, or unsafe content.
+
+5. `LangfuseObservabilityAgent`
+   - Reads `logs/agent.jsonl`.
+   - Checks whether observability events have useful fields like request IDs and event names.
+
+6. `BraintrustAuditAgent`
+   - Reads `logs/audit.jsonl`.
+   - Checks whether audit records contain useful evaluation fields.
+
+7. `GuardrailComplianceAgent`
+   - Reads audit logs.
+   - Looks for policy issues such as PII-like text or missing citations.
+
+8. `PlaywrightGeneratorAgent`
+   - Generates pytest files under `tests/agentic/generated/`.
+   - Creates browser UI tests and generated tests for golden data, RAGAS, DeepEval, PyRIT, and compliance checks.
+
+9. `PlaywrightRunnerAgent`
+   - Runs the generated pytest files.
+   - Captures the return code, stdout, and stderr into the agent report.
+
+At the end, the orchestrator writes a combined JSON run report under `reports/agentic/`.
+
+## 4. Files In `app/testing/`
+
+This is the main testing framework package.
+
+- `app/testing/orchestrator.py`
+  - Runs all testing agents in sequence.
+  - Produces one combined run report.
+- `app/testing/__main__.py`
+  - Lets you run the workflow with `python -m app.testing`.
+- `app/testing/models.py`
+  - Defines shared data objects such as `AgentReport`, `RunReport`, `GoldenExample`, and `Snippet`.
+- `app/testing/config.py`
+  - Defines testing paths like `tests/agentic/golden/`, `tests/agentic/generated/`, and `reports/agentic/`.
+- `app/testing/client.py`
+  - Client used by agents to ask questions to the chatbot.
+- `app/testing/llm.py`
+  - Local LLM helper used by dataset generation.
+- `app/testing/discovery.py`
+  - Finds book folders and builds snippets from textbook content.
+- `app/testing/reporting.py`
+  - Saves agent and run reports as JSON.
+- `app/testing/utils.py`
+  - Shared utility helpers for JSON, folders, and text normalization.
+
+## 5. Files In `app/testing/agents/`
+
+These are the real testing agents used by the main workflow.
+
+- `app/testing/agents/base.py`
+  - Base class for all testing agents.
+  - Handles timing and failure reporting.
+- `app/testing/agents/golden_dataset.py`
+  - Generates golden datasets from textbook snippets.
+- `app/testing/agents/ragas_agent.py`
+  - Runs RAGAS-style answer checks against golden datasets.
+- `app/testing/agents/embedding_verifier.py`
+  - Older retrieval verification agent.
+  - Kept as a useful lower-level retrieval check.
+- `app/testing/agents/deepeval_agent.py`
+  - Runs DeepEval-style response quality checks.
+- `app/testing/agents/pyrit_attack.py`
+  - Runs adversarial prompt checks.
+- `app/testing/agents/compliance.py`
+  - Contains Langfuse-style, Braintrust-style, and Guardrails-style agents.
+- `app/testing/agents/playwright_generator.py`
+  - Generates pytest files for browser and agent checks.
+- `app/testing/agents/playwright_runner.py`
+  - Runs generated pytest files.
+
+## 6. Files In `app/agents/`
+
+This folder is the older compatibility agent layer.
+
+It is still useful because `app/orchestrator.py` imports these classes, but most of the deeper workflow now lives in `app/testing/agents/`.
+
+- `app/agents/base.py`
+  - Defines `AgentResult`, the result object used by the older agent runner.
+- `app/agents/deepeval_agent.py`
+  - Wrapper around the newer DeepEval testing agent.
+- `app/agents/ragas_agent.py`
+  - Wrapper around retrieval/RAGAS-style testing logic.
+- `app/agents/pyrit_agent.py`
+  - Wrapper around PyRIT-style testing logic.
+- `app/agents/langfuse_agent.py`
+  - Wrapper around observability testing logic.
+- `app/agents/braintrust_agent.py`
+  - Wrapper around audit testing logic.
+- `app/agents/guardrails_agent.py`
+  - Wrapper around compliance testing logic.
+- `app/agents/playwright_agent.py`
+  - Wrapper around Playwright test generation.
+
+The older top-level runner is:
+
+```powershell
+python -m app.orchestrator
+```
+
+For the full intended testing flow, use this instead:
+
+```powershell
+python -m app.testing.orchestrator
+```
+
+## 7. Files In `tests/`
+
+The `tests/` folder is for pytest.
+
+- `tests/conftest.py`
+  - Sets up default Allure output under `reports/allure/`.
+- `tests/suites/test_agent_layout.py`
+  - Confirms expected agent modules can be imported.
+- `tests/suites/test_deepeval_suite.py`
+  - DeepEval suite placeholder/check entry.
+- `tests/suites/test_ragas_suite.py`
+  - RAGAS suite placeholder/check entry.
+- `tests/suites/test_pyrit_suite.py`
+  - PyRIT suite placeholder/check entry.
+- `tests/suites/test_playwright_suite.py`
+  - Checks the Playwright compatibility agent and embedded agent workflow.
+- `tests/suites/test_langfuse_suite.py`
+  - Langfuse observability suite placeholder/check entry.
+- `tests/suites/test_braintrust_suite.py`
+  - Braintrust audit suite placeholder/check entry.
+- `tests/suites/test_guardrails_suite.py`
+  - Guardrails compliance suite placeholder/check entry.
+- `tests/suites/test_observability.py`
+  - Tests log redaction, hashing, and audit payload behavior.
+
+Generated tests are written to:
+
+```text
+tests/agentic/generated/
+```
+
+Golden datasets are written to:
+
+```text
+tests/agentic/golden/
+```
+
+## 8. Allure Report Flow
+
+To run the pytest suites and create one Allure results folder:
+
+```powershell
+pytest -q tests/suites --alluredir=reports/allure
+```
+
+To view the report:
+
+```powershell
+allure serve reports/allure
+```
+
+Each pytest file under `tests/suites/` is treated like a separate suite, so DeepEval, RAGAS, PyRIT, Playwright, Langfuse, Braintrust, and Guardrails can appear separately while still rolling up into one report.
+
+## 9. Setup Commands
+
+Create a virtual environment:
+
 ```powershell
 cd C:\TeacherAI
 python -m venv .venv
 .\.venv\Scripts\activate
 ```
 
-### 4.3 Install dependencies
+Install dependencies:
+
 ```powershell
 pip install -r requirements.txt
 pip install -r requirements-agentic.txt
 ```
 
-### 4.4 Install and run Ollama
+Start Ollama:
+
 ```powershell
 ollama pull phi3:mini
 ollama serve
 ```
 
-### 4.5 Start the server
+Start the chatbot:
+
 ```powershell
 uvicorn app.server:app --reload
 ```
 
 Open:
+
 ```text
 http://127.0.0.1:8000
 ```
 
-## 5. Agentic AI testing framework
+Run the full testing framework:
 
-The testing framework is designed to evaluate chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows.
-
-### 5.1 Run the full testing workflow
 ```powershell
 python -m app.testing.orchestrator
 ```
-
-### 5.2 Run pytest suites
-```powershell
-pytest -q tests/suites
-```
-
-### 5.3 Generate Allure output
-```powershell
-pytest -q tests/suites --alluredir=reports/allure
-```
-
-### 5.4 View the report
-```powershell
-allure serve reports/allure
-```
-- run the pytest-based suite files such as test_deepeval_suite.py, test_ragas_suite.py, test_pyrit_suite.py, test_langfuse_suite.py, test_braintrust_suite.py, test_guardrails_suite.py, and test_playwright_suite.py
-- execute the assertions and test cases defined in those suite files
-- collect results in pytest output and report them in the terminal
-- generate or refresh the Allure report when the Allure directory is configured
-
-Use this when you want to run the formal test suites themselves.
-
-```powershell
-pytest -q tests/suites
-```
-
-Generate or refresh the Allure report:
-
-=======
-### 5.3 Generate Allure output
->>>>>>> ab9d9f6 (readme updated)
-```powershell
-pytest -q tests/suites --alluredir=reports/allure
-```
-
-<<<<<<< HEAD
-View the latest Allure report:
-
-```powershell
-allure serve reports/allure
-```
-
-You can also run the regression checks used during development:
-
-```powershell
-pytest -q tests/suites/test_agent_layout.py tests/suites/test_observability.py
-```
-=======
-### 5.4 View the report
-```powershell
-allure serve reports/allure
-```
->>>>>>> ab9d9f6 (readme updated)

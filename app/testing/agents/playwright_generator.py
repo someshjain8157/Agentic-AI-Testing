@@ -21,6 +21,7 @@ class PlaywrightGeneratorAgent(BaseAgent):
         test_files = {
             "test_chatbot_ui_playwright.py": self._render_ui_module(),
             "test_chatbot_golden_pytest.py": self._render_golden_module(families),
+            "test_chatbot_ragas_pytest.py": self._render_agent_wrapper_module("ragas_agent"),
             "test_chatbot_deepeval_pytest.py": self._render_agent_wrapper_module("deepeval_agent"),
             "test_chatbot_pyrit_pytest.py": self._render_agent_wrapper_module("pyrit_attack_agent"),
             "test_chatbot_compliance_pytest.py": self._render_compliance_module(),
@@ -121,14 +122,20 @@ class TestGoldenDatasets:
 
     @staticmethod
     def _render_agent_wrapper_module(agent_name: str) -> str:
-        return f"""from app.testing.agents.deepeval_agent import DeepEvalAgent
-from app.testing.agents.pyrit_attack import PyRITAttackAgent
+        module_map = {
+            "deepeval_agent": ("app.testing.agents.deepeval_agent", "DeepEvalAgent"),
+            "pyrit_attack_agent": ("app.testing.agents.pyrit_attack", "PyRITAttackAgent"),
+            "ragas_agent": ("app.testing.agents.ragas_agent", "RagasAgent"),
+        }
+        module_path, class_name = module_map[agent_name]
+        test_class_name = "".join(part.title() for part in agent_name.split("_"))
+        return f"""from {module_path} import {class_name}
 from app.testing.models import AgentReport
 
 
-class Test{agent_name.title().replace('_', '')}Agent:
+class Test{test_class_name}Agent:
     def test_agent_runs(self):
-        agent = {'DeepEvalAgent' if agent_name == 'deepeval_agent' else 'PyRITAttackAgent'}()
+        agent = {class_name}()
         report = agent.run()
         assert isinstance(report, AgentReport)
         assert report.status in {{'passed', 'warning'}}
