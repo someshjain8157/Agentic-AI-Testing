@@ -4,18 +4,18 @@ import argparse
 import json
 from pathlib import Path
 
-from app.testing.agents.base import BaseAgent
-from app.testing.agents.compliance import BraintrustAuditAgent, GuardrailComplianceAgent, LangfuseObservabilityAgent
-from app.testing.agents.deepeval_agent import DeepEvalAgent
-from app.testing.agents.golden_dataset import GoldenDatasetAgent
-from app.testing.agents.ragas_agent import RagasAgent
-from app.testing.agents.playwright_generator import PlaywrightGeneratorAgent
-from app.testing.agents.playwright_runner import PlaywrightRunnerAgent
-from app.testing.agents.pyrit_attack import PyRITAttackAgent
-from app.testing.config import ARTIFACT_DIR
-from app.testing.models import RunReport
-from app.testing.reporting import save_run_report
-from app.testing.utils import ensure_dir
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.agents.compliance import BraintrustAuditAgent, GuardrailComplianceAgent, LangfuseObservabilityAgent
+from app.agentic_testing.agents.deepeval_agent import DeepEvalAgent
+from app.agentic_testing.agents.golden_dataset import GoldenDatasetAgent
+from app.agentic_testing.agents.ragas_agent import RagasAgent
+from app.agentic_testing.agents.playwright_generator import PlaywrightGeneratorAgent
+from app.agentic_testing.agents.playwright_runner import PlaywrightRunnerAgent
+from app.agentic_testing.agents.pyrit_attack import PyRITAttackAgent
+from app.agentic_testing.config import ARTIFACT_DIR
+from app.agentic_testing.models import RunReport
+from app.agentic_testing.reporting import save_run_report
+from app.agentic_testing.utils import ensure_dir
 
 
 class TestingOrchestrator:

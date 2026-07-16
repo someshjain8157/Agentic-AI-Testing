@@ -3,11 +3,14 @@ from __future__ import annotations
 import time
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-from app.testing.client import ChatbotClient
-from app.testing.llm import LocalAgentLLM
-from app.testing.models import AgentReport
-from app.testing.config import DEFAULT_MODEL
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.config import DEFAULT_MODEL
+
+if TYPE_CHECKING:
+    from app.agentic_testing.client import ChatbotClient
+    from app.agentic_testing.llm import LocalAgentLLM
 
 
 class BaseAgent(ABC):
@@ -16,13 +19,29 @@ class BaseAgent(ABC):
     def __init__(
         self,
         *,
-        llm: LocalAgentLLM | None = None,
-        client: ChatbotClient | None = None,
+        llm: "LocalAgentLLM | None" = None,
+        client: "ChatbotClient | None" = None,
         output_dir: Path | None = None,
     ):
-        self.llm = llm or LocalAgentLLM(model=DEFAULT_MODEL)
-        self.client = client or ChatbotClient()
+        self._llm = llm
+        self._client = client
         self.output_dir = output_dir
+
+    @property
+    def llm(self) -> "LocalAgentLLM":
+        if self._llm is None:
+            from app.agentic_testing.llm import LocalAgentLLM
+
+            self._llm = LocalAgentLLM(model=DEFAULT_MODEL)
+        return self._llm
+
+    @property
+    def client(self) -> "ChatbotClient":
+        if self._client is None:
+            from app.agentic_testing.client import ChatbotClient
+
+            self._client = ChatbotClient()
+        return self._client
 
     def run(self) -> AgentReport:
         started = time.perf_counter()

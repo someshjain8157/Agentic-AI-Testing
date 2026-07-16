@@ -6,7 +6,7 @@ from typing import Any
 
 import ollama
 
-from app.testing.utils import extract_json_text
+from app.agentic_testing.utils import extract_json_text
 
 
 @dataclass

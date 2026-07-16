@@ -3,12 +3,12 @@ from __future__ import annotations
 import textwrap
 from pathlib import Path
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import DEFAULT_GOLDEN_PER_SUBJECT, GOLDEN_DATA_DIR
-from app.testing.discovery import build_snippets_for_family, discover_subject_families
-from app.testing.models import AgentReport, GoldenExample
-from app.testing.reporting import save_agent_report
-from app.testing.utils import ensure_dir, write_json
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import DEFAULT_GOLDEN_PER_SUBJECT, GOLDEN_DATA_DIR
+from app.agentic_testing.discovery import build_snippets_for_family, discover_subject_families
+from app.agentic_testing.models import AgentReport, GoldenExample
+from app.agentic_testing.reporting import save_agent_report
+from app.agentic_testing.utils import ensure_dir, write_json
 
 
 SYSTEM_PROMPT = """You are a dataset generation agent for a school chatbot.

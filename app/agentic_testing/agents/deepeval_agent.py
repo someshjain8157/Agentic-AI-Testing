@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from statistics import mean
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import DEFAULT_DEEPEVAL_SAMPLES, GOLDEN_DATA_DIR
-from app.testing.discovery import discover_subject_families
-from app.testing.models import AgentReport
-from app.testing.reporting import save_agent_report
-from app.testing.utils import read_json
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import DEFAULT_DEEPEVAL_SAMPLES, GOLDEN_DATA_DIR
+from app.agentic_testing.discovery import discover_subject_families
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.reporting import save_agent_report
+from app.agentic_testing.utils import read_json
 
 
 class DeepEvalAgent(BaseAgent):

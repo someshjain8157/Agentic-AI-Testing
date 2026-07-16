@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import GENERATED_TEST_DIR, GOLDEN_DATA_DIR
-from app.testing.discovery import discover_subject_families
-from app.testing.models import AgentReport
-from app.testing.reporting import save_agent_report
-from app.testing.utils import ensure_dir
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import GENERATED_TEST_DIR, GOLDEN_DATA_DIR
+from app.agentic_testing.discovery import discover_subject_families
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.reporting import save_agent_report
+from app.agentic_testing.utils import ensure_dir
 
 
 class PlaywrightGeneratorAgent(BaseAgent):
@@ -95,9 +95,9 @@ class TestChatbotUI:
             f"{{'key': '{family.key}', 'label': '{family.label}', 'folder': '{family.folder_names[0]}'}}"
             for family in families
         )
-        return f"""from app.testing.client import ChatbotClient
-from app.testing.config import GOLDEN_DATA_DIR
-from app.testing.utils import read_json
+        return f"""from app.agentic_testing.client import ChatbotClient
+from app.agentic_testing.config import GOLDEN_DATA_DIR
+from app.agentic_testing.utils import read_json
 
 
 FAMILIES = [
@@ -123,14 +123,14 @@ class TestGoldenDatasets:
     @staticmethod
     def _render_agent_wrapper_module(agent_name: str) -> str:
         module_map = {
-            "deepeval_agent": ("app.testing.agents.deepeval_agent", "DeepEvalAgent"),
-            "pyrit_attack_agent": ("app.testing.agents.pyrit_attack", "PyRITAttackAgent"),
-            "ragas_agent": ("app.testing.agents.ragas_agent", "RagasAgent"),
+            "deepeval_agent": ("app.agentic_testing.agents.deepeval_agent", "DeepEvalAgent"),
+            "pyrit_attack_agent": ("app.agentic_testing.agents.pyrit_attack", "PyRITAttackAgent"),
+            "ragas_agent": ("app.agentic_testing.agents.ragas_agent", "RagasAgent"),
         }
         module_path, class_name = module_map[agent_name]
         test_class_name = "".join(part.title() for part in agent_name.split("_"))
         return f"""from {module_path} import {class_name}
-from app.testing.models import AgentReport
+from app.agentic_testing.models import AgentReport
 
 
 class Test{test_class_name}Agent:
@@ -143,7 +143,7 @@ class Test{test_class_name}Agent:
 
     @staticmethod
     def _render_compliance_module() -> str:
-        return """from app.testing.agents.compliance import BraintrustAuditAgent, GuardrailComplianceAgent, LangfuseObservabilityAgent
+        return """from app.agentic_testing.agents.compliance import BraintrustAuditAgent, GuardrailComplianceAgent, LangfuseObservabilityAgent
 
 
 class TestComplianceAgents:

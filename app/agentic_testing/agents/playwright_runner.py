@@ -4,10 +4,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import GENERATED_TEST_DIR
-from app.testing.models import AgentReport
-from app.testing.reporting import save_agent_report
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import GENERATED_TEST_DIR
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.reporting import save_agent_report
 
 
 class PlaywrightRunnerAgent(BaseAgent):

@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import ARTIFACT_DIR
-from app.testing.models import AgentReport
-from app.testing.reporting import save_agent_report
-from app.testing.utils import ensure_dir, read_json, write_json
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import ARTIFACT_DIR
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.reporting import save_agent_report
+from app.agentic_testing.utils import ensure_dir, read_json, write_json
 
 
 class LangfuseObservabilityAgent(BaseAgent):

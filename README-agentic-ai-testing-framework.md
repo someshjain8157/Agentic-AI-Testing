@@ -15,23 +15,23 @@ pip install pytest allure-pytest
 
 ### 1.1 Key files and folders
 
-- `app/testing/orchestrator.py`
+- `app/agentic_testing/orchestrator.py`
   - Main sequential testing pipeline.
-- `app/testing/agents/`
+- `app/agentic_testing/agents/`
   - Contains the explicit agent implementations used by the pipeline.
-- `app/testing/agents/golden_dataset.py`
+- `app/agentic_testing/agents/golden_dataset.py`
   - Builds golden question-answer datasets from local textbook snippets.
-- `app/testing/agents/ragas_agent.py`
+- `app/agentic_testing/agents/ragas_agent.py`
   - Runs RAGAS-style retrieval verification against the generated goldens.
-- `app/testing/agents/deepeval_agent.py`
+- `app/agentic_testing/agents/deepeval_agent.py`
   - Runs sample comparisons against the generated golden dataset.
-- `app/testing/agents/pyrit_attack.py`
+- `app/agentic_testing/agents/pyrit_attack.py`
   - Runs adversarial or red-team style checks.
-- `app/testing/agents/compliance.py`
+- `app/agentic_testing/agents/compliance.py`
   - Contains the Langfuse, Braintrust, and Guardrails-style checks.
-- `app/testing/agents/playwright_generator.py`
+- `app/agentic_testing/agents/playwright_generator.py`
   - Generates browser and library-specific pytest modules.
-- `app/testing/agents/playwright_runner.py`
+- `app/agentic_testing/agents/playwright_runner.py`
   - Executes the generated Playwright-oriented pytest files.
 - `tests/suites/`
   - Stores separate pytest suites for each library or evaluation area.
@@ -113,7 +113,7 @@ The orchestrator and the pytest suites do different jobs.
 ### 6.1 Run the orchestrator
 
 ```powershell
-python -m app.testing.orchestrator
+python -m app.agentic_testing.orchestrator
 ```
 
 This executes the full agent workflow in one pass.
@@ -146,6 +146,6 @@ pytest -q tests/suites/test_agent_layout.py tests/suites/test_observability.py
 
 ## 7. Notes
 
-- The newer `app/testing/` package is the clearest place to understand the evaluation workflow.
+- The newer `app/agentic_testing/` package is the clearest place to understand the evaluation workflow.
 - The older `app/agents/` package remains as a compatibility layer and mirrors parts of the same intent.
 - Each pytest file under `tests/suites/` is intended to act as a separate suite inside the shared Allure report.

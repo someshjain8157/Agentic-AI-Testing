@@ -3,8 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from app.testing.models import AgentReport, RunReport
-from app.testing.utils import ensure_dir, write_json
+from app.agentic_testing.models import AgentReport, RunReport
+from app.agentic_testing.utils import ensure_dir, write_json
 
 
 def save_agent_report(report: AgentReport, output_dir: Path) -> Path:

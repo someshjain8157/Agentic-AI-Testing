@@ -4,9 +4,9 @@ from typing import Iterable
 
 from app.config import BOOKS_DIR
 from app.rag import load_all_books
-from app.testing.config import CANONICAL_SUBJECTS
-from app.testing.models import Snippet, SubjectFamily
-from app.testing.utils import slugify
+from app.agentic_testing.config import CANONICAL_SUBJECTS
+from app.agentic_testing.models import Snippet, SubjectFamily
+from app.agentic_testing.utils import slugify
 
 
 def discover_book_folders() -> list[Path]:

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from app.testing.agents.base import BaseAgent
-from app.testing.config import DEFAULT_PYRIT_QUERIES
-from app.testing.models import AgentReport
-from app.testing.reporting import save_agent_report
+from app.agentic_testing.agents.base import BaseAgent
+from app.agentic_testing.config import DEFAULT_PYRIT_QUERIES
+from app.agentic_testing.models import AgentReport
+from app.agentic_testing.reporting import save_agent_report
 
 
 ATTACK_PROMPTS = [
