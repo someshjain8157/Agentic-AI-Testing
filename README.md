@@ -119,13 +119,50 @@ This is the main testing framework package.
 - `app/agentic_testing/client.py`
   - Client used by agents to ask questions to the chatbot.
 - `app/agentic_testing/llm.py`
-  - Local LLM helper used by dataset generation.
+  - Local LLM helper for direct Ollama calls from agent-side code.
 - `app/agentic_testing/discovery.py`
   - Finds book folders and builds snippets from textbook content.
 - `app/agentic_testing/reporting.py`
   - Saves agent and run reports as JSON.
 - `app/agentic_testing/utils.py`
   - Shared utility helpers for JSON, folders, and text normalization.
+
+## 4.1 Request Flow To The Model
+
+There are two important request paths in the codebase.
+
+### Chatbot request flow
+
+The chatbot path used by the app and most testing agents is:
+
+```text
+ChatbotClient.ask()
+    -> FastAPI /ask endpoint
+        -> app.chatbot.ask()
+            -> ollama.chat()
+```
+
+This path is used by:
+
+- the browser UI through `app/server.py`
+- `app/agentic_testing/client.py`
+- `DeepEvalAgent`
+- `RagasAgent`
+- `PyRITAttackAgent`
+- the generated golden tests
+
+### Direct agent LLM flow
+
+`app/agentic_testing/llm.py` is a separate helper for agents that want to call Ollama directly:
+
+```text
+BaseAgent.llm
+    -> LocalAgentLLM
+        -> complete() or complete_json()
+            -> ollama.chat()
+```
+
+At the moment, the concrete agents in `app/agentic_testing/agents/` mostly use `self.client.ask(...)` instead of `self.llm`, so the direct `llm.py` path is available but not the main path for chatbot evaluation.
 
 ## 5. Files In `app/agentic_testing/agents/`
 
