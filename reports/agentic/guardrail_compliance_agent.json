@@ -10,9 +10,249 @@
       {
         "type": "missing_citations",
         "request_id": "0082cc38bda84442acd1b8ef5e88ca5a"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-english-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-math-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-science-2"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-1"
+      },
+      {
+        "type": "question_pii",
+        "request_id": "deepeval-social_science-2"
+      },
+      {
+        "type": "missing_citations",
+        "request_id": "deepeval-social_science-2"
       }
     ],
-    "log_count": 51
+    "log_count": 200
   },
-  "id": "bd64799ccc0741fbae503a9095370ab6"
+  "id": "e05889045ce3452c99ad2aaaabb44954"
 }

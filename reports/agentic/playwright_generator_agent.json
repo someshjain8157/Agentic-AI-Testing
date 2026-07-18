@@ -1,7 +1,7 @@
 {
   "name": "playwright_generator_agent",
   "status": "passed",
-  "summary": "Generated a small pytest suite covering UI, golden data, DeepEval, PyRIT, and compliance checks.",
+  "summary": "Existing generated tests reused; regeneration skipped.",
   "duration_ms": 0.0,
   "artifacts": [
     "C:\\TeacherAI\\tests\\agentic\\generated\\test_chatbot_ui_playwright.py",
@@ -18,7 +18,8 @@
       "math",
       "science",
       "social_science"
-    ]
+    ],
+    "regenerated": false
   },
-  "id": "07c9277a726349408a46dfab6f8ab9e2"
+  "id": "260bec742fa641a785eb0453c6323892"
 }

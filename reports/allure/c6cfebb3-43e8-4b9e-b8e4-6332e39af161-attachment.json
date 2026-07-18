@@ -1,0 +1,10 @@
+{
+  "title": "english golden dataset count",
+  "expected_output": "10 examples",
+  "actual_output": "10 examples",
+  "score": 1.0,
+  "passed": true,
+  "details": {
+    "generated_file": "C:\\TeacherAI\\tests\\agentic\\golden\\english.json"
+  }
+}

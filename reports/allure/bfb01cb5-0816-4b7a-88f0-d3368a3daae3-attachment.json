@@ -1,0 +1,16 @@
+{
+  "title": "observability log coverage",
+  "expected_output": "Coverage at or above 0.8 with request IDs and events present",
+  "actual_output": {
+    "integration": "langfuse",
+    "coverage": 1.0,
+    "log_count": 267
+  },
+  "score": 1.0,
+  "passed": true,
+  "details": {
+    "integration": "langfuse",
+    "coverage": 1.0,
+    "log_count": 267
+  }
+}

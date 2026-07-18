@@ -10,45 +10,35 @@
         {
           "question": "What is the main idea in Chapter 1?",
           "expected_answer": "I Complete the given word web.",
-          "actual_answer": "The main idea in Chapter 1 emphasizes understanding one's purpose, which can lead to a fulfilling life by aligning actions with personal goals and values. The chapter encourages self-reflection as the first step towards this realization. (Based on \"Chapter 9 Title\" from Grade 8 textbook context)\n\n\n\n                TEXTBOOK CONTEXT\n               Chapter 12: Understanding Our World\n             \u2002(i)\tThe importance of biodiversity for ecosystem health and human well-being. (ii) The role of conservation efforts in protecting endangered species. (iii) Examples of successful habitat restoration projects around the globe, including their challenges and outcomes.\n             \u2002(iv)\tThe impacts of climate change on biodiversity loss with a focus on",
+          "actual_answer": "The main idea in Chapter 1 revolves around self-belief and stepping out of one's comfort zone to embrace personal development, as symbolized by taking that first step towards learning pot making despite challenges faced. The poet emphasizes the importance of initiating change through action rather than remaining static within a familiar yet limiting environment.",
           "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
-              "page": 5
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
-              "chapter": "Chapter 9",
-              "page": 26
-            },
             {
               "subject": "ENGLISH- Kaveri",
               "chapter": "Chapter 4",
               "page": 23
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 8",
+              "page": 19
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 2",
+              "page": 17
+            },
+            {
+              "subject": "ENGLISH- Kaveri",
+              "chapter": "Chapter 7",
+              "page": 20
             }
           ]
         },
         {
           "question": "What does the excerpt from Chapter 2 explain?",
           "expected_answer": "I Look at the pictures given below and identify the vocations.",
-          "actual_answer": "The excerpt from Chapter 2 explains that she was deeply interested in a story, which led her to discuss it with friends, indicating curiosity about literature can lead to shared experiences and learning among peers. (Based on contexts ii) and iii).",
+          "actual_answer": "1.\t The heart as a pilgrim suggests it embarks on life's journey seeking fulfillment and experiences, often encountering challenges along the way. It needs words when communication is essential for expressing emotions or sharing thoughts that are hard to articulate through actions alone. Words can be ineffectual like weeds because they may not always convey true feelings if one's heart isn't genuinely engaged with them, implying their superficiality without sincerity.\n\t(i) The poet refers to the heart as a pilgrim on earth to symbolize its journey through life in search of meaning and experiences beyond mere existence. (ii) A heart might need words when it struggles to express complex emotions or thoughts that are difficult to communicate non-verbally, such as love, loss, or joy.",
           "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
-              "page": 5
-            },
             {
               "subject": "ENGLISH- Kaveri",
               "chapter": "Chapter 1",
@@ -58,116 +48,6 @@
               "subject": "ENGLISH- Kaveri",
               "chapter": "Chapter 8",
               "page": 20
-            }
-          ]
-        }
-      ],
-      "pass_rate": 1.0,
-      "ragas_available": true
-    },
-    "math": {
-      "samples": [
-        {
-          "question": "What is the main idea in Chapter 1?",
-          "expected_answer": "Orienting Yourself: The Use of Coordinates 1.1 Introduction A system of coordinates is a structured framework (like the grid lines on a map or graph paper) that enables us to use numbers to describe the exact physical locations of points or objects.",
-          "actual_answer": "The main idea in Chapter 1 focuses on introducing various subjects that will be explored throughout grade eight, setting a foundation for knowledge across different disciplines without specific details provided herein.",
-          "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
-              "page": 5
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
-              "chapter": "Chapter 9",
-              "page": 26
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 4",
-              "page": 23
-            }
-          ]
-        },
-        {
-          "question": "What does the excerpt from Chapter 2 explain?",
-          "expected_answer": "Introduction to Linear Polynomials 2.1 Introduction We have learnt about algebraic expressions in earlier grades.",
-          "actual_answer": "The excerpt from Chapter 2 suggests that curiosity can lead students, like She in this case, to engage deeply with stories they encounter, prompting discussions among peers which may enhance learning through shared insights. (Based on contexts ii and iii)",
-          "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
-              "page": 5
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 1",
-              "page": 6
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 8",
-              "page": 20
-            }
-          ]
-        }
-      ],
-      "pass_rate": 0.0,
-      "ragas_available": true
-    },
-    "science": {
-      "samples": [
-        {
-          "question": "What is the main idea in Chapter 1?",
-          "expected_answer": "Exploration: Entering the World of Secondary Science 1 In the middle stage, science invited you to be curious and observe the world closely, to ask questions, and to find out how things work.",
-          "actual_answer": "The main idea in Chapter 1 focuses on introducing various subjects that will be explored throughout Grade 9, setting a broad foundation for learning across different disciplines. The chapter likely emphasizes the importance of curiosity and how it drives students to learn more about these topics. (Note: Without specific text from Chapter 1 provided in the context above, this answer is inferred based on common themes found at the beginning of educational texts.)",
-          "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
-              "page": 5
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
-              "chapter": "Chapter 9",
-              "page": 26
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 4",
-              "page": 23
-            }
-          ]
-        },
-        {
-          "question": "What does the excerpt from Chapter 10 explain?",
-          "expected_answer": "Sound Waves: Characteristics and Applications Chapter 10 Sound is an everyday sensory experience that helps us become aware of our surroundings.",
-          "actual_answer": "The excerpt from Chapter 10 explains that in a good year, one gets just one crop of bajra (a type of millet), which is not enough to feed a family of five; thus they rely on this job for survival. The term 'entail' refers to involving or requiring something as part of the necessary actions or consequences related to an event or condition, while 'striding' means walking with long steps and has no direct connection to the context provided.\n\n\nMCQ: What is a pilgrimage? (Choose one)\n\nA. A journey for pleasure in nature\n\nB. An educational field trip \u2705\n\nC. Traveling exclusively by foot without any vehicle assistance\n\nD. Visiting religious sites as an act of devotion",
-          "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 1",
-              "page": 6
             },
             {
               "subject": "ENGLISH- Kaveri",
@@ -176,21 +56,85 @@
             },
             {
               "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 7",
+              "chapter": "Chapter 8",
+              "page": 6
+            }
+          ]
+        }
+      ],
+      "sample_count": 2,
+      "pass_rate": 1.0,
+      "ragas_available": true,
+      "subject_name": "ENGLISH- Kaveri"
+    },
+    "math": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "Orienting Yourself: The Use of Coordinates 1.1 Introduction A system of coordinates is a structured framework (like the grid lines on a map or graph paper) that enables us to use numbers to describe the exact physical locations of points or objects.",
+          "actual_answer": "The main idea in Chapter 1 is about understanding how a coordinate system works, which includes identifying points on a plane using coordinates (x, y). It also involves learning different ways of representing these points visually through sketches or diagrams to better understand their positions and relationships.\n\n\nChapter 5 MCQ: What does the term 'chord' refer to in geometry?\n\nA) A line segment with both endpoints on a circle  \nB) The distance around a circular object   \nC) An angle formed by two intersecting lines within a triangle    \nD) The longest side of an equilateral triangle \n\nAnswer: A",
+          "sources": [
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 5",
+              "page": 2
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 1",
+              "page": 2
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 1",
+              "page": 3
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 1",
+              "page": 7
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 2 explain?",
+          "expected_answer": "Introduction to Linear Polynomials 2.1 Introduction We have learnt about algebraic expressions in earlier grades.",
+          "actual_answer": "The excerpt from Chapter 2 explains that a circle can be inscribed in any triangle, with its center at equal perpendicular distances (radii) from all three vertices of the triangle. This concept is illustrated by drawing an equilateral triangle and then constructing circles within it centered on each vertex; these inner circles will share their centers as well.",
+          "sources": [
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 3",
+              "page": 22
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 1",
+              "page": 7
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 5",
+              "page": 2
+            },
+            {
+              "subject": "MATH - Ganita Manjari",
+              "chapter": "Chapter 4",
               "page": 8
             }
           ]
         }
       ],
+      "sample_count": 2,
       "pass_rate": 0.0,
-      "ragas_available": true
+      "ragas_available": true,
+      "subject_name": "MATH - Ganita Manjari"
     },
-    "social_science": {
+    "science": {
       "samples": [
         {
           "question": "What is the main idea in Chapter 1?",
-          "expected_answer": "Understanding Social Science Chapter 1 In Grades 6 to 8, we have explored Social Science through stories of people, places, and events.",
-          "actual_answer": "The main idea in Chapter 1 focuses on introducing various subjects that are essential for understanding broader topics, as indicated by titles like \"Chapter Title\" suggesting a thematic introduction of concepts or ideas relevant throughout the textbook. The chapter likely sets up foundational knowledge necessary to comprehend subsequent chapters' content and contexts.",
+          "expected_answer": "Exploration: Entering the World of Secondary Science 1 In the middle stage, science invited you to be curious and observe the world closely, to ask questions, and to find out how things work.",
+          "actual_answer": "The main idea in Chapter 1 emphasizes understanding Earth's systems and their interactions, highlighting how different parts of our planet work together to create a balanced environment where life can thrive. It introduces students to the concept that everything on Earth is connected through cycles like water, air, rock, ice, and living organisms.",
           "sources": [
             {
               "subject": "SCIENCE - Exploration",
@@ -201,6 +145,90 @@
               "subject": "SCIENCE - Exploration",
               "chapter": "Chapter 13",
               "page": 21
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 2
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 1",
+              "page": 1
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 10 explain?",
+          "expected_answer": "Sound Waves: Characteristics and Applications Chapter 10 Sound is an everyday sensory experience that helps us become aware of our surroundings.",
+          "actual_answer": "The excerpt from Chapter 10 explains that changes in one sphere can affect others, as seen with snowfall impacting lake levels and grass availability for sheep. Less snow leads to lower water input into lakes during spring melt, potentially reducing the amount of available moisture for vegetation growth, which could result in less food for grazing animals like sheep.",
+          "sources": [
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 21
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 11",
+              "page": 5
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 4",
+              "page": 24
+            },
+            {
+              "subject": "SCIENCE - Exploration",
+              "chapter": "Chapter 13",
+              "page": 2
+            }
+          ]
+        }
+      ],
+      "sample_count": 2,
+      "pass_rate": 0.0,
+      "ragas_available": true,
+      "subject_name": "SCIENCE - Exploration"
+    },
+    "social_science": {
+      "samples": [
+        {
+          "question": "What is the main idea in Chapter 1?",
+          "expected_answer": "Understanding Social Science Chapter 1 In Grades 6 to 8, we have explored Social Science through stories of people, places, and events.",
+          "actual_answer": "The main idea in Chapter 1 revolves around introducing students to civilisations, their development through time, and how geography influences societies' growth patterns. It sets a foundation for understanding human history within the context of physical landscapes.",
+          "sources": [
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 9",
+              "page": 26
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 4",
+              "page": 34
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 8",
+              "page": 1
+            },
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 1",
+              "page": 12
+            }
+          ]
+        },
+        {
+          "question": "What does the excerpt from Chapter 2 explain?",
+          "expected_answer": "Shaping of the Earth\u2019s Surface Chapter 2 1.",
+          "actual_answer": "The excerpt from Chapter 2 describes a traditional gurukula system where students lived with their teacher in an educational setting that resembled more of a family than just another school environment, emphasizing close relationships between the student and teacher within this unique learning atmosphere. The textbook does not provide further details on specific practices or rituals but highlights the intimate nature of education during ancient times through gurukulas.\n\n\nFor MCQ: True/False - Fundamental Rights are indivisible, inalienable, and subject to reasonable restrictions as per law. (True)",
+          "sources": [
+            {
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 5",
+              "page": 24
             },
             {
               "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
@@ -208,43 +236,23 @@
               "page": 26
             },
             {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 4",
-              "page": 23
-            }
-          ]
-        },
-        {
-          "question": "What does the excerpt from Chapter 2 explain?",
-          "expected_answer": "Shaping of the Earth\u2019s Surface Chapter 2 1.",
-          "actual_answer": "The excerpt from Chapter 2 shows that a girl was very interested in hearing about someone's story, which led her to discuss it with friends as part of being curious. (Based on context chunks ii) and iii). The textbook does not directly address the significance or message conveyed by metaphors or antithesis regarding personal growth; therefore, I couldn't find that information in the Grade 9 textbooks.",
-          "sources": [
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 13",
-              "page": 21
-            },
-            {
-              "subject": "SCIENCE - Exploration",
-              "chapter": "Chapter 11",
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 6",
               "page": 5
             },
             {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 1",
-              "page": 6
-            },
-            {
-              "subject": "ENGLISH- Kaveri",
-              "chapter": "Chapter 8",
-              "page": 20
+              "subject": "SOCIAL SCIENCE - Understanding Society India and Beyond",
+              "chapter": "Chapter 5",
+              "page": 31
             }
           ]
         }
       ],
+      "sample_count": 2,
       "pass_rate": 0.5,
-      "ragas_available": true
+      "ragas_available": true,
+      "subject_name": "SOCIAL SCIENCE - Understanding Society India and Beyond"
     }
   },
-  "id": "f8bb82e84d594b65b9ecec880dd30a0f"
+  "id": "7b57a2866dc941719c9ca6b557b1a0a8"
 }

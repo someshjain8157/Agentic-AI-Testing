@@ -1,151 +1,234 @@
-# Agentic AI testing framework
+# TeacherAI Agentic AI Testing Framework
 
-This document covers the agentic AI testing framework for TeacherAI. It is a multi-agent evaluation layer designed to validate chatbot responses, retrieval grounding, adversarial behavior, and browser-based workflows through Playwright, DeepEval, RAGAS-style retrieval verification, PyRIT, Langfuse, Braintrust, and Guardrails AI.
+This repository contains a multi-agent evaluation framework for TeacherAI. The framework runs dataset generation, chatbot evaluation, red-team checks, observability checks, compliance checks, generated smoke tests, and pytest-based reporting into one combined Allure view.
 
-The framework is built around a single sequential orchestration flow so the whole evaluation pass feels like one pipeline, while still keeping each library-specific check isolated enough to report as its own suite.
+The chatbot documentation lives in `README-teacherai-chatbot.md`. This file and `README.md` describe the agentic testing workflow only.
 
-## 1. Framework layout
+## 1. What the framework does
 
-Install the testing dependencies with:
+The agentic pipeline is built to:
 
-```powershell
-pip install -r requirements-agentic.txt
-pip install pytest allure-pytest
+- generate golden datasets from textbook snippets
+- evaluate chatbot answers against those goldens
+- compare retrieval quality and response quality
+- run adversarial and compliance checks
+- generate and reuse smoke-test pytest files
+- publish everything into one Allure report
+
+Think of the workflow like this:
+
+```text
+Golden data is generated once
+        |
+        v
+Agent tests call the chatbot or inspect logs
+        |
+        v
+Each agent saves a JSON report under reports/agentic/
+        |
+        v
+Pytest suites turn the agent results into Allure test cases
+        |
+        v
+Generated smoke tests and suite tests roll up into one Allure report
 ```
 
-### 1.1 Key files and folders
+## 2. Main files
 
 - `app/agentic_testing/orchestrator.py`
-  - Main sequential testing pipeline.
+  - Runs all agents in sequence.
+  - Saves the combined run report.
 - `app/agentic_testing/agents/`
-  - Contains the explicit agent implementations used by the pipeline.
-- `app/agentic_testing/agents/golden_dataset.py`
-  - Builds golden question-answer datasets from local textbook snippets.
-- `app/agentic_testing/agents/ragas_agent.py`
-  - Runs RAGAS-style retrieval verification against the generated goldens.
-- `app/agentic_testing/agents/deepeval_agent.py`
-  - Runs sample comparisons against the generated golden dataset.
-- `app/agentic_testing/agents/pyrit_attack.py`
-  - Runs adversarial or red-team style checks.
-- `app/agentic_testing/agents/compliance.py`
-  - Contains the Langfuse, Braintrust, and Guardrails-style checks.
-- `app/agentic_testing/agents/playwright_generator.py`
-  - Generates browser and library-specific pytest modules.
-- `app/agentic_testing/agents/playwright_runner.py`
-  - Executes the generated Playwright-oriented pytest files.
+  - Contains the concrete agent implementations.
+- `app/agentic_testing/client.py`
+  - Client wrapper used by evaluation agents to call the chatbot API.
+- `app/agentic_testing/llm.py`
+  - Direct Ollama helper for agent-side model calls if needed.
+- `app/agentic_testing/discovery.py`
+  - Discovers subject families and builds snippets for golden data.
+- `app/agentic_testing/reporting.py`
+  - Writes agent and run reports to JSON files.
+- `app/agentic_testing/models.py`
+  - Defines `AgentReport`, `RunReport`, `GoldenExample`, `Snippet`, and `SubjectFamily`.
 - `tests/suites/`
-  - Stores separate pytest suites for each library or evaluation area.
-- `tests/suites/test_deepeval_suite.py`
-  - Pytest suite for the DeepEval flow.
-- `tests/suites/test_ragas_suite.py`
-  - Pytest suite for the RAGAS flow.
-- `tests/suites/test_pyrit_suite.py`
-  - Pytest suite for the PyRIT flow.
-- `tests/suites/test_playwright_suite.py`
-  - Pytest suite for the Playwright browser workflow.
-- `tests/suites/test_langfuse_suite.py`
-  - Pytest suite for observability checks.
-- `tests/suites/test_braintrust_suite.py`
-  - Pytest suite for audit and experiment logging checks.
-- `tests/suites/test_guardrails_suite.py`
-  - Pytest suite for safety and compliance checks.
-- `pytest.ini`
-  - Configures pytest and the Allure output directory.
+  - Detailed pytest suites that expose per-agent testcases in Allure.
+- `tests/agentic/generated/`
+  - Generated smoke-test files reused by default.
+- `reports/agentic/`
+  - Saved JSON outputs from each agent and the overall run.
 - `reports/allure/`
-  - Stores the latest Allure report output.
+  - Combined Allure results folder produced by pytest.
 
-## 2. Agent types in the framework
+## 3. Agents and their roles
 
-- Golden dataset agent
-  - Generates question-answer pairs from textbook snippets.
-- RAGAS agent
-  - Compares retrieved answers against the generated goldens.
-- DeepEval agent
-  - Evaluates chatbot responses against expected quality criteria.
-- PyRIT agent
-  - Runs adversarial or red-team style checks.
-- Langfuse agent
-  - Tracks observability and tracing around chatbot evaluations.
-- Braintrust agent
-  - Supports experiment-style evaluation and logging workflows.
-- Guardrails AI agent
-  - Validates prompt and output safety constraints.
-- Playwright agent
-  - Acts as the umbrella browser workflow and generates the browser-facing pytest modules.
+- `GoldenDatasetAgent`
+  - Builds golden question-answer datasets from textbook snippets.
+- `RagasAgent`
+  - Evaluates retrieval quality using the chatbot response and golden answers.
+- `DeepEvalAgent`
+  - Compares chatbot answers against golden references and records sample scores.
+- `PyRITAttackAgent`
+  - Sends adversarial prompts to the chatbot and flags leakage.
+- `LangfuseObservabilityAgent`
+  - Checks observability log coverage in `logs/agent.jsonl`.
+- `BraintrustAuditAgent`
+  - Checks audit log coverage in `logs/audit.jsonl`.
+- `GuardrailComplianceAgent`
+  - Scans audit logs for policy issues such as missing citations or PII-like text.
+- `PlaywrightGeneratorAgent`
+  - Generates or reuses smoke-test pytest files under `tests/agentic/generated/`.
+- `PlaywrightRunnerAgent`
+  - Runs the generated smoke-test files with pytest.
 
-## 3. Workflow
+## 4. Request flow
 
-The testing workflow is intentionally linear:
+There are two model-call paths in the codebase.
 
-1. The orchestrator generates golden datasets.
-2. The RAGAS-style retrieval verifier checks retrieval quality against those goldens.
-3. DeepEval compares sampled chatbot answers to the expected goldens.
-4. PyRIT runs adversarial checks.
-5. Langfuse, Braintrust, and Guardrails review observability, audit, and compliance behavior.
-6. Playwright generates browser-oriented pytest modules.
-7. Playwright executes the generated browser tests.
-8. The orchestrator collects the results into a single run report.
+### 4.1 Chatbot evaluation path
 
-## 4. What gets executed and generated
+Used by the evaluation agents:
 
-When you run the framework, the following artifacts are produced:
-
-- Executed test modules
-  - Pytest suites under `tests/suites/`
-- Generated test results
-  - Pytest output is collected by pytest and stored in the workspace.
-- Allure report
-  - HTML-style report written to `reports/allure/`
-- Runtime summaries
-  - Agent execution summaries are printed in the terminal and also saved as structured JSON in `reports/agentic/`
-
-## 5. Where results are saved
-
-- Test suites: `tests/suites/`
-- Pytest output and execution status: terminal output and pytest reports
-- Allure report: `reports/allure/`
-- Structured agent reports: `reports/agentic/`
-
-## 6. How to run the framework
-
-The orchestrator and the pytest suites do different jobs.
-
-### 6.1 Run the orchestrator
-
-```powershell
-python -m app.agentic_testing.orchestrator
+```text
+ChatbotClient.ask()
+    -> FastAPI /ask endpoint
+        -> app.chatbot.ask()
+            -> ollama.chat()
 ```
 
-This executes the full agent workflow in one pass.
+This path is used by:
 
-### 6.2 Run the pytest suites
+- `DeepEvalAgent`
+- `RagasAgent`
+- `PyRITAttackAgent`
+- generated golden tests
 
-```powershell
-pytest -q tests/suites
+### 4.2 Direct agent LLM path
+
+Available for agent-side direct calls:
+
+```text
+BaseAgent.llm
+    -> LocalAgentLLM
+        -> complete() / complete_json()
+            -> ollama.chat()
 ```
 
-This runs the formal library-specific test files.
+In the current codebase, the concrete evaluation agents mostly use `self.client.ask(...)` rather than `self.llm`.
 
-### 6.3 Generate Allure output
+## 5. Reports generated
+
+Each agent writes a JSON report into `reports/agentic/`.
+
+Examples:
+
+- `golden_dataset_agent.json`
+- `ragas_agent.json`
+- `deepeval_agent.json`
+- `pyrit_attack_agent.json`
+- `langfuse_observability_agent.json`
+- `braintrust_audit_agent.json`
+- `guardrail_compliance_agent.json`
+- `playwright_generator_agent.json`
+- `playwright_runner_agent.json`
+- `run_<id>.json`
+
+These reports are the source data for the suite tests and the combined Allure output.
+
+## 6. Test layers
+
+There are two test layers:
+
+### 6.1 Detailed suite tests
+
+Files under `tests/suites/` read the saved agent JSON reports and turn each agent testcase into a pytest item. In Allure, each item shows:
+
+- testcase name
+- expected output
+- actual output
+- score
+- pass or fail
+- extra details such as question text, sources, and report metadata
+
+Important suite files:
+
+- `tests/suites/test_golden_dataset_suite.py`
+- `tests/suites/test_ragas_suite.py`
+- `tests/suites/test_deepeval_suite.py`
+- `tests/suites/test_pyrit_suite.py`
+- `tests/suites/test_langfuse_suite.py`
+- `tests/suites/test_braintrust_suite.py`
+- `tests/suites/test_guardrails_suite.py`
+- `tests/suites/test_playwright_suite.py`
+
+### 6.2 Generated smoke tests
+
+Files under `tests/agentic/generated/` are lightweight smoke tests. They check that each generated agent wrapper can run and return an `AgentReport`.
+
+They are reused by default. They are regenerated only when the orchestrator is run with:
 
 ```powershell
-pytest -q tests/suites --alluredir=reports/allure
+--regenerate-playwright-tests
 ```
 
-### 6.4 View the report
+## 7. Allure report layout
+
+The pytest run produces one combined Allure results folder in `reports/allure/`.
+
+The report is intended to show two sections:
+
+- Smoke tests
+  - generated pytest wrappers and runner checks
+- Agentic evaluation
+  - per-agent testcase reporting for golden data, RAGAS, DeepEval, PyRIT, observability, audit, and guardrails
+
+Each agent testcase should appear with its score and pass/fail result, so the Allure report can be used as a readable execution summary.
+
+## 8. Execution
+
+From the project root, run:
 
 ```powershell
+.\.venv\Scripts\python.exe -m app.agentic_testing.orchestrator
+.\.venv\Scripts\python.exe -m pytest -q tests
 allure serve reports/allure
 ```
 
-### 6.5 Run the regression checks used during development
+What each step does:
+
+1. `app.agentic_testing.orchestrator`
+   - Generates or reuses golden data.
+   - Runs all agents in sequence.
+   - Saves reports under `reports/agentic/`.
+   - Reuses generated smoke tests unless regeneration is explicitly requested.
+
+2. `pytest -q tests`
+   - Runs the detailed agent suites under `tests/suites/`.
+   - Runs the generated smoke tests under `tests/agentic/generated/`.
+   - Produces the Allure result files in `reports/allure/`.
+
+3. `allure serve reports/allure`
+   - Opens the combined report in the browser.
+
+To force regeneration of the generated smoke tests:
 
 ```powershell
-pytest -q tests/suites/test_agent_layout.py tests/suites/test_observability.py
+.\.venv\Scripts\python.exe -m app.agentic_testing.orchestrator --regenerate-playwright-tests
 ```
 
-## 7. Notes
+## 9. Generated data locations
 
-- The newer `app/agentic_testing/` package is the clearest place to understand the evaluation workflow.
-- The older `app/agents/` package remains as a compatibility layer and mirrors parts of the same intent.
-- Each pytest file under `tests/suites/` is intended to act as a separate suite inside the shared Allure report.
+- Golden datasets:
+  - `tests/agentic/golden/`
+- Generated smoke tests:
+  - `tests/agentic/generated/`
+- Agent reports:
+  - `reports/agentic/`
+- Allure output:
+  - `reports/allure/`
+
+## 10. Notes
+
+- Golden datasets are generated once and reused until explicitly regenerated.
+- Generated smoke tests are reused by default and only refreshed when requested.
+- The detailed suites are the best place to inspect testcase-level score and pass/fail behavior.
+- The generated smoke tests are useful as a quick execution check, while the suite tests provide the richer Allure breakdown.
